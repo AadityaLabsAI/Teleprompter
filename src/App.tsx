@@ -18,6 +18,7 @@ export default function App() {
     <AnimatePresence mode="wait">
       {mode === 'editor' ? (
         <Editor
+          key="editor"
           script={script}
           setScript={setScript}
           wpm={wpm}
@@ -26,6 +27,7 @@ export default function App() {
         />
       ) : (
         <Teleprompter
+          key="prompter"
           script={script}
           wpm={wpm}
           onExit={() => setMode('editor')}
