@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState, type ChangeEvent } from 'react';
 import { Clock3, Download, FileText, FolderOpen, Play, ShieldCheck, Trash2, Upload } from 'lucide-react';
 import { motion } from 'motion/react';
 import { APP_CONFIG } from '../config';
@@ -43,7 +43,7 @@ export function Editor({ script, setScript, wpm, setWpm, onPlay }: EditorProps) 
     setSaved(true);
   };
 
-  const handleImport = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImport = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (!file) return;
     const allowed = file.type === 'text/plain' || file.name.toLowerCase().endsWith('.txt') || file.name.toLowerCase().endsWith('.md');
