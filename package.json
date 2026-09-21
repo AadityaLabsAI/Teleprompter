@@ -1,15 +1,15 @@
 {
-  "name": "velora",
+  "name": "teleqen",
   "private": true,
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A private, offline-first teleprompter for creators, presenters and video makers.",
   "author": "Aaditya Samriya",
   "license": "SEE LICENSE IN LICENSE.md",
-  "keywords": ["teleprompter", "creator-tools", "youtube", "instagram", "presenter", "offline", "react", "vite"],
+  "keywords": ["teleprompter", "creator-tools", "youtube", "instagram", "presenter", "offline", "react", "vite", "pwa"],
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "tsc --noEmit && vite build",
     "start": "vite preview",
     "preview": "vite preview",
     "clean": "rm -rf dist",
@@ -26,7 +26,7 @@
   },
   "devDependencies": {
     "autoprefixer": "^10.4.21",
-    "tailwindcss": "^4.1.14",
+    "tailwindcss": "^4.1.0",
     "typescript": "~5.8.2"
   }
 }
