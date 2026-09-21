@@ -56,6 +56,7 @@ export function Teleprompter({ script, wpm, onExit }: TeleprompterProps) {
       if (event.key.toLowerCase() === 'r') resetScroll();
       if (event.key.toLowerCase() === 'm') setIsFlipped((value) => !value);
       if (event.key.toLowerCase() === 's') setShowSettings((value) => !value);
+      if (event.key.toLowerCase() === 'f') void toggleFullscreen();
       if (event.key === '?') setShowShortcuts((value) => !value);
       if (event.key === 'ArrowUp') setSpeedMultiplier((value) => Math.min(5, +(value + 0.1).toFixed(1)));
       if (event.key === 'ArrowDown') setSpeedMultiplier((value) => Math.max(0.2, +(value - 0.1).toFixed(1)));
