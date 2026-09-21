@@ -5,7 +5,17 @@
   "description": "A private, offline-first teleprompter for creators, presenters and video makers.",
   "author": "Aaditya Samriya",
   "license": "SEE LICENSE IN LICENSE.md",
-  "keywords": ["teleprompter", "creator-tools", "youtube", "instagram", "presenter", "offline", "react", "vite", "pwa"],
+  "keywords": [
+    "teleprompter",
+    "creator-tools",
+    "youtube",
+    "instagram",
+    "presenter",
+    "offline",
+    "react",
+    "vite",
+    "pwa"
+  ],
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -13,7 +23,8 @@
     "start": "vite preview",
     "preview": "vite preview",
     "clean": "rm -rf dist",
-    "lint": "tsc --noEmit"
+    "lint": "tsc --noEmit",
+    "test": "npm run lint"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.14",
@@ -28,5 +39,8 @@
     "autoprefixer": "^10.4.21",
     "tailwindcss": "^4.1.0",
     "typescript": "~5.8.2"
+  },
+  "engines": {
+    "node": ">=20"
   }
 }
