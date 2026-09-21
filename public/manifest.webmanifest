@@ -1,0 +1,12 @@
+{
+  "name": "Teleqen",
+  "short_name": "Teleqen",
+  "description": "Private, offline-first teleprompter for creators.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#050506",
+  "theme_color": "#050506",
+  "icons": [
+    { "src": "/teleqen-mark.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}
