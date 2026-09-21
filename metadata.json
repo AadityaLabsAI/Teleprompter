@@ -1,6 +1,13 @@
 {
-  "name": "Remix: TeleMaster Pro",
-  "description": "Smart Web Teleprompter \u0026 Script Pacing SaaS with auto-scroll, text mirroring, and WPM tracking.",
-  "requestFramePermissions": ["microphone"],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+  "name": "Teleqen",
+  "description": "Offline-first browser teleprompter for creators, presenters and video makers with smooth scrolling, voice following, mirror mode and fullscreen controls.",
+  "requestFramePermissions": [
+    "microphone"
+  ],
+  "majorCapabilities": [
+    "offline-first",
+    "voice-following",
+    "fullscreen",
+    "mirror-mode"
+  ]
 }
