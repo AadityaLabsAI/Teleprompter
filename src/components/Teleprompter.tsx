@@ -57,6 +57,7 @@ export function Teleprompter({ script, wpm, onExit }: TeleprompterProps) {
   const [textWidth, setTextWidth] = useLocalStorage('teleqen-text-width', 1100);
   const [soundEnabled, setSoundEnabled] = useLocalStorage('teleqen-sound', true);
   const [voiceEnabled, setVoiceEnabled] = useLocalStorage('teleqen-voice-follow', false);
+  const [shortcutsEnabled, setShortcutsEnabled] = useLocalStorage('teleqen-shortcuts', true);
   const [showHUD, setShowHUD] = useState(true);
   const [showSettings, setShowSettings] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
@@ -207,15 +208,16 @@ export function Teleprompter({ script, wpm, onExit }: TeleprompterProps) {
       const target = event.target as HTMLElement | null;
       const tag = target?.tagName;
       if (tag === 'INPUT' || tag === 'SELECT' || tag === 'TEXTAREA' || target?.isContentEditable) return;
+      if (!shortcutsEnabled) return;
       if (event.code === 'Space') { event.preventDefault(); setIsPlaying((value) => !value); }
+      if (event.key === 'ArrowUp') setSpeedMultiplier((value) => Math.min(5, +(value + 0.1).toFixed(1)));
+      if (event.key === 'ArrowDown') setSpeedMultiplier((value) => Math.max(0.2, +(value - 0.1).toFixed(1)));
       if (event.key.toLowerCase() === 'r') resetScroll();
       if (event.key.toLowerCase() === 'm') setIsFlipped((value) => !value);
       if (event.key.toLowerCase() === 's') setShowSettings((value) => !value);
       if (event.key.toLowerCase() === 'v') setVoiceEnabled((value) => !value);
       if (event.key.toLowerCase() === 'f') void toggleFullscreen();
       if (event.key === '?') setShowShortcuts((value) => !value);
-      if (event.key === 'ArrowUp') setSpeedMultiplier((value) => Math.min(5, +(value + 0.1).toFixed(1)));
-      if (event.key === 'ArrowDown') setSpeedMultiplier((value) => Math.max(0.2, +(value - 0.1).toFixed(1)));
       if (event.key === 'Escape') {
         if (showShortcuts) { setShowShortcuts(false); return; }
         if (showSettings) { setShowSettings(false); return; }
@@ -226,7 +228,7 @@ export function Teleprompter({ script, wpm, onExit }: TeleprompterProps) {
     };
     window.addEventListener('keydown', handleKey);
     return () => window.removeEventListener('keydown', handleKey);
-  }, [onExit, showSettings, showShortcuts, countdown, setIsFlipped, setShowSettings, setVoiceEnabled, setSpeedMultiplier]);
+  }, [onExit, showSettings, showShortcuts, countdown, shortcutsEnabled, setIsFlipped, setShowSettings, setVoiceEnabled, setSpeedMultiplier]);
 
   useEffect(() => {
     const onFullscreen = () => setIsFullscreen(Boolean(document.fullscreenElement));
@@ -313,7 +315,7 @@ export function Teleprompter({ script, wpm, onExit }: TeleprompterProps) {
           <button onClick={onExit} className="control-btn text-red-300/70 hover:bg-red-500/10 hover:text-red-200" aria-label="Exit teleprompter"><X className="h-5 w-5" /><span>Exit</span></button>
         </div></div>
       </div>
-      {showSettings && <div className="glass-panel fixed bottom-24 left-1/2 z-[60] w-[calc(100%-1.5rem)] max-w-md -translate-x-1/2 rounded-2xl p-4" role="dialog" aria-label="Display settings"><div className="mb-4 flex items-center justify-between"><h2 className="text-sm font-bold">Display</h2><button onClick={() => setShowSettings(false)} aria-label="Close settings"><X className="h-4 w-4 text-white/50" /></button></div><div className="space-y-4 text-xs text-white/60"><label className="block">Text size<input aria-label="Text size" type="range" min="32" max="140" value={fontSize} onChange={(e) => setFontSize(Number(e.target.value))} className="range-clean mt-2 w-full" /></label><label className="block">Text width<input aria-label="Text width" type="range" min="600" max="1800" step="50" value={textWidth} onChange={(e) => setTextWidth(Number(e.target.value))} className="range-clean mt-2 w-full" /></label><label className="block">Line spacing<input aria-label="Line spacing" type="range" min="1.1" max="1.8" step=".05" value={lineHeight} onChange={(e) => setLineHeight(Number(e.target.value))} className="range-clean mt-2 w-full" /></label><label className="block">Typeface<select aria-label="Typeface" value={fontFamily} onChange={(e) => setFontFamily(e.target.value)} className="mt-2 w-full rounded-lg border border-white/10 bg-white/5 p-2 text-white outline-none"><option value={FONT_FAMILIES[0].value}>Clean</option><option value={FONT_FAMILIES[1].value}>Classic</option><option value={FONT_FAMILIES[2].value}>Creator</option></select></label><label className="flex items-center justify-between gap-4"><span>Single-key shortcuts</span><input type="checkbox" checked={true} onChange={() => undefined} aria-label="Single-key shortcuts are enabled" /></label></div></div>}
+      {showSettings && <div className="glass-panel fixed bottom-24 left-1/2 z-[60] w-[calc(100%-1.5rem)] max-w-md -translate-x-1/2 rounded-2xl p-4" role="dialog" aria-label="Display settings"><div className="mb-4 flex items-center justify-between"><h2 className="text-sm font-bold">Display</h2><button onClick={() => setShowSettings(false)} aria-label="Close settings"><X className="h-4 w-4 text-white/50" /></button></div><div className="space-y-4 text-xs text-white/60"><label className="block">Text size<input aria-label="Text size" type="range" min="32" max="140" value={fontSize} onChange={(e) => setFontSize(Number(e.target.value))} className="range-clean mt-2 w-full" /></label><label className="block">Text width<input aria-label="Text width" type="range" min="600" max="1800" step="50" value={textWidth} onChange={(e) => setTextWidth(Number(e.target.value))} className="range-clean mt-2 w-full" /></label><label className="block">Line spacing<input aria-label="Line spacing" type="range" min="1.1" max="1.8" step=".05" value={lineHeight} onChange={(e) => setLineHeight(Number(e.target.value))} className="range-clean mt-2 w-full" /></label><label className="block">Typeface<select aria-label="Typeface" value={fontFamily} onChange={(e) => setFontFamily(e.target.value)} className="mt-2 w-full rounded-lg border border-white/10 bg-white/5 p-2 text-white outline-none"><option value={FONT_FAMILIES[0].value}>Clean</option><option value={FONT_FAMILIES[1].value}>Classic</option><option value={FONT_FAMILIES[2].value}>Creator</option></select></label><label className="flex items-center justify-between gap-4"><span>Single-key shortcuts</span><input type="checkbox" checked={shortcutsEnabled} onChange={(e) => setShortcutsEnabled(e.target.checked)} aria-label="Enable single-key shortcuts" /></label></div></div>}
     </motion.div>
   );
 }
