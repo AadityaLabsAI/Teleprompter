@@ -15,6 +15,8 @@
   button, input, textarea, select { font: inherit; }
   button { -webkit-tap-highlight-color: transparent; }
   textarea { field-sizing: content; }
+  button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 2px solid rgba(167,139,250,.9); outline-offset: 2px; }
+  kbd { display: inline-flex; min-width: 1.8rem; justify-content: center; border: 1px solid rgba(255,255,255,.12); border-bottom-width: 2px; border-radius: .45rem; padding: .15rem .35rem; font-size: .7rem; color: rgba(255,255,255,.8); background: rgba(255,255,255,.04); }
   ::selection { background: rgba(139,92,246,.28); }
   ::-webkit-scrollbar { width: 8px; height: 8px; }
   ::-webkit-scrollbar-track { background: transparent; }
@@ -23,7 +25,7 @@
 }
 
 @layer utilities {
-  .velora-shell { position: relative; }
+  .teleqen-shell { position: relative; }
   .glass-panel { background: rgba(14,15,18,.78); border: 1px solid rgba(255,255,255,.075); box-shadow: 0 30px 90px rgba(0,0,0,.28), inset 0 1px rgba(255,255,255,.028); backdrop-filter: blur(22px); }
   .editor-card { background: #0d0e11; border: 1px solid rgba(255,255,255,.075); box-shadow: 0 30px 90px rgba(0,0,0,.34), inset 0 1px rgba(255,255,255,.025); }
   .brand-mark { background: linear-gradient(145deg, rgba(255,255,255,.09), rgba(255,255,255,.025)); border: 1px solid rgba(255,255,255,.10); box-shadow: 0 12px 30px rgba(0,0,0,.28), inset 0 1px rgba(255,255,255,.08); }
