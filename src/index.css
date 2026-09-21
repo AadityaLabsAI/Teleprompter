@@ -38,6 +38,8 @@
   .smooth-scroll-container { -ms-overflow-style: none; scrollbar-width: none; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; }
    .smooth-scroll-container::-webkit-scrollbar { display: none; }
   .hud-scroll { -ms-overflow-style: none; scrollbar-width: none; }
+  .teleqen-hud { bottom: max(1rem, env(safe-area-inset-bottom)); }
+  .teleqen-settings { bottom: max(6rem, calc(env(safe-area-inset-bottom) + 5rem)); }
   .hud-scroll::-webkit-scrollbar { display: none; }
 }
 
