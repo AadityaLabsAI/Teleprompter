@@ -1,71 +1,47 @@
-<div align="center">
-  <img src="https://img.shields.io/badge/Version-1.0.0-blue.svg" alt="Version">
-  <img src="https://img.shields.io/badge/License-Commercial-red.svg" alt="License">
-  <img src="https://img.shields.io/badge/React-19-61dafb.svg?logo=react" alt="React">
-  <img src="https://img.shields.io/badge/TailwindCSS-v4-38B2AC.svg?logo=tailwind-css" alt="Tailwind">
-  <img src="https://img.shields.io/badge/TypeScript-Ready-3178C6.svg?logo=typescript" alt="TypeScript">
-  
-  <h1>🚀 TeleMaster Pro - Premium Teleprompter SaaS</h1>
-  <p>Your studio-grade, fully responsive browser teleprompter.</p>
-</div>
+# Teleqen
 
-Welcome to your new SaaS! This application runs 100% in the browser with **ZERO BACKEND COSTS** and **ZERO MAINTENANCE**. It is heavily optimized for modern video creators, podcasters, and business professionals.
+> Your words. Your flow.
 
-## 🌟 Key Features
-- **Distraction-Free Editor:** Minimalistic, focused script crafting area.
-- **Real-Time Analytics:** Track words, characters, and dynamic reading time estimations.
-- **Hardware-Accelerated Scroller:** `requestAnimationFrame` powers perfectly smooth auto-scrolling.
-- **Studio Tools:** Reading Focus Line, Physical Mirror Mode, adjustable typography, and dynamic WPM.
-- **Fully Responsive:** Looks incredible on Desktop, iPad, and Smartphones.
+Teleqen is a privacy-first, offline-oriented web teleprompter for creators, presenters, teachers and video makers. Scripts and display preferences stay in the browser; no account is required for the core experience.
 
-## 🛠️ How to Setup (No Coding Required)
+## Features
 
-All the customizations you need to make are located in a single file: `src/config.ts`.
+- Smooth WPM-based auto-scroll with pause, resume, reset and progress
+- Voice Follow using the browser's built-in Speech Recognition API when supported
+- 3-second countdown with optional audio cue
+- Mirror mode for physical teleprompter glass
+- Fullscreen mode and Screen Wake Lock where supported
+- Focus/eye-line guide
+- Adjustable font size, width, line spacing and typeface
+- Local persistence for scripts, WPM and prompter preferences
+- Import TXT / Markdown and export TXT
+- Mobile-friendly controls and keyboard shortcuts
+- No backend is required for the core app
 
-1. Open `src/config.ts`.
-2. Change the `appName` and `appTagline` to rebrand it as your own SaaS.
-3. **Monetization**: Find the `affiliateProducts` list and replace the placeholder `link` URLs with your real affiliate links (e.g., Amazon Associates, ShareASale). This is how you make passive income when users click the gear recommendations!
+## Run locally
 
-## 🚀 How to Deploy (Free & Instant)
+Requires Node.js 20+.
 
-Since this app is a purely frontend React application (Vite), you can host it for **free** on platforms like Vercel, Netlify, or Cloudflare Pages.
+    npm install
+    npm run dev
 
-### Method 1: Vercel (Recommended)
-1. Push this code to a GitHub repository.
-2. Go to [Vercel](https://vercel.com/) and sign up / log in.
-3. Click **Add New Project** and import your GitHub repository.
-4. Leave all build settings as default (Framework Preset: Vite, Build Command: `npm run build`, Output Directory: `dist`).
-5. Click **Deploy**. Your app will be live globally in 1 minute!
+Production build:
 
-### Method 2: Netlify
-1. Push this code to a GitHub repository.
-2. Go to [Netlify](https://netlify.com/) and sign up.
-3. Click **Add new site** -> **Import an existing project**.
-4. Connect GitHub and select your repository.
-5. Click **Deploy Site**.
+    npm run lint
+    npm run build
 
-## 💰 Monetization Strategy
-- **Passive Affiliate Income:** The widget at the bottom natively recommends gear to creators right before they record. These convert incredibly well.
-- **Lifetime Deal (Optional):** If you want to put this behind a paywall, you can simply add Gumroad or Stripe payment links, or sell access to the deployed URL. Currently, it's open and frictionless to maximize traffic and affiliate clicks.
+## Browser support
 
-## 💻 Tech Stack
-- **React 18/19** (Functional components, hooks)
-- **Vite** (Next-gen frontend tooling)
-- **Tailwind CSS v4** (Utility-first styling)
-- **Framer Motion** (Fluid layout transitions)
-- **Lucide React** (Beautiful consistent icons)
+Core scrolling works in modern browsers. Voice Follow depends on the browser's Web Speech API and microphone permissions, so the Voice control may be unavailable on some browsers.
 
-## ⚖️ License & Legal
+## Privacy
 
-This project is licensed under a **Proprietary Commercial License**. 
+Teleqen does not need a server for the core editor/prompter workflow. Speech recognition is provided by the browser when Voice Follow is enabled; browser implementations may differ in how speech is processed.
 
-By purchasing this repository, you are explicitly granted permission to use, modify, and deploy this software for personal or commercial projects. However, **you may not resell, distribute, or publicly share the source code**. 
+## Deployment
 
-Please see the [LICENSE.md](LICENSE.md) file for complete details.
+The app is a Vite frontend and can be deployed to static hosting such as Vercel, Netlify or Cloudflare Pages.
 
----
+## License
 
-<p align="center">
-  <i>Maintained with ❤️ for Creators. Check <a href="CHANGELOG.md">CHANGELOG.md</a> for version history.</i><br/>
-  <sup>See <a href="SECURITY.md">SECURITY.md</a> for reporting vulnerabilities, and <a href="CONTRIBUTING.md">CONTRIBUTING.md</a> for guidelines.</sup>
-</p>
+See LICENSE.md for the repository license.
