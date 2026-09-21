@@ -66,8 +66,8 @@ export function Editor({ script, setScript, wpm, setWpm, onPlay }: EditorProps) 
   };
 
   return (
-    <motion.main initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.25 }} className="min-h-screen w-full bg-[#070707] px-3 py-3 text-white sm:px-6 sm:py-6 lg:px-10">
-      <div className="mx-auto flex min-h-[calc(100vh-1.5rem)] w-full max-w-[1680px] flex-col sm:min-h-[calc(100vh-3rem)]">
+    <motion.main initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.25 }} className="min-h-[100dvh] w-full bg-[#070707] px-3 py-3 text-white sm:px-6 sm:py-6 lg:px-10">
+      <div className="mx-auto flex min-h-[calc(100dvh-1.5rem)] w-full max-w-[1680px] flex-col sm:min-h-[calc(100dvh-3rem)]">
         <header className="mb-4 flex flex-col gap-4 border-b border-white/[.07] pb-4 sm:mb-6 sm:pb-5 lg:flex-row lg:items-center lg:justify-between">
           <div className="flex min-w-0 items-center gap-3">
             <img src="/teleqen-mark.svg" alt="Teleqen" className="h-10 w-10 shrink-0 rounded-[13px] shadow-lg sm:h-11 sm:w-11" />
