@@ -279,6 +279,10 @@ export function Teleprompter({ script, wpm, onExit }: TeleprompterProps) {
     return () => document.removeEventListener('visibilitychange', onVisibility);
   }, [isPlaying]);
 
+  useEffect(() => {
+    if (!isPlaying) void releaseWakeLock();
+  }, [isPlaying]);
+
   useEffect(() => () => { void releaseWakeLock(); stopVoice(); }, []);
 
   const togglePlay = () => {
