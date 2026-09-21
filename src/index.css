@@ -36,7 +36,9 @@
   .active-control { @apply bg-violet-500/12 text-violet-300 ring-1 ring-violet-400/20; }
   .range-clean { accent-color: #a78bfa; }
   .smooth-scroll-container { -ms-overflow-style: none; scrollbar-width: none; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; }
-  .smooth-scroll-container::-webkit-scrollbar { display: none; }
+   .smooth-scroll-container::-webkit-scrollbar { display: none; }
+  .hud-scroll { -ms-overflow-style: none; scrollbar-width: none; }
+  .hud-scroll::-webkit-scrollbar { display: none; }
 }
 
 @media (min-width: 1600px) {
