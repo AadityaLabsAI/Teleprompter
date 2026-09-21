@@ -66,6 +66,7 @@ export function Teleprompter({ script, wpm, onExit }: TeleprompterProps) {
   const [showShortcuts, setShowShortcuts] = useState(false);
   const [voiceListening, setVoiceListening] = useState(false);
   const [voiceStatus, setVoiceStatus] = useState('');
+  const progressRef = useRef(0);
   const containerRef = useRef<HTMLDivElement>(null);
   const animationRef = useRef<number | null>(null);
   const lastTimeRef = useRef<number | null>(null);
@@ -93,6 +94,7 @@ export function Teleprompter({ script, wpm, onExit }: TeleprompterProps) {
 
   const resetScroll = () => {
     containerRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
+    progressRef.current = 0;
     setProgress(0);
     setIsPlaying(false);
     setCountdown(0);
@@ -104,6 +106,14 @@ export function Teleprompter({ script, wpm, onExit }: TeleprompterProps) {
       if (document.fullscreenElement) await document.exitFullscreen();
       else await document.documentElement.requestFullscreen();
     } catch { /* fullscreen may be unavailable */ }
+  };
+
+  const exitPrompter = () => {
+    setIsPlaying(false);
+    setCountdown(0);
+    stopVoice();
+    void releaseWakeLock();
+    onExit();
   };
 
   const beep = (frequency: number, duration = 100) => {
@@ -161,7 +171,7 @@ export function Teleprompter({ script, wpm, onExit }: TeleprompterProps) {
       const tail = heardWords.slice(-10);
       let bestIndex = -1;
       let bestScore = 0;
-      const current = Math.floor((progress / 100) * scriptWords.length);
+      const current = Math.floor((progressRef.current / 100) * scriptWords.length);
       const start = Math.max(0, current - 12);
       const end = Math.min(scriptWords.length, current + 90);
       for (let i = start; i < end; i += 1) {
@@ -178,7 +188,9 @@ export function Teleprompter({ script, wpm, onExit }: TeleprompterProps) {
           const maxScroll = Math.max(1, container.scrollHeight - container.clientHeight);
           const target = Math.max(0, (bestIndex / Math.max(1, scriptWords.length - 1)) * maxScroll);
           container.scrollTo({ top: target, behavior: 'smooth' });
-          setProgress(Math.min(100, (bestIndex / Math.max(1, scriptWords.length - 1)) * 100));
+          const nextProgress = Math.min(100, (bestIndex / Math.max(1, scriptWords.length - 1)) * 100);
+          progressRef.current = nextProgress;
+          setProgress(nextProgress);
         }
       }
     };
@@ -204,6 +216,10 @@ export function Teleprompter({ script, wpm, onExit }: TeleprompterProps) {
   }, [voiceEnabled]);
 
   useEffect(() => {
+    progressRef.current = progress;
+  }, [progress]);
+
+  useEffect(() => {
     const handleKey = (event: KeyboardEvent) => {
       const target = event.target as HTMLElement | null;
       const tag = target?.tagName;
@@ -223,7 +239,7 @@ export function Teleprompter({ script, wpm, onExit }: TeleprompterProps) {
         if (showSettings) { setShowSettings(false); return; }
         if (countdown > 0) { setCountdown(0); return; }
         if (document.fullscreenElement) void document.exitFullscreen();
-        else onExit();
+        else exitPrompter();
       }
     };
     window.addEventListener('keydown', handleKey);
@@ -252,7 +268,9 @@ export function Teleprompter({ script, wpm, onExit }: TeleprompterProps) {
         const maxScroll = Math.max(1, container.scrollHeight - container.clientHeight);
         if (time - progressTimeRef.current > 100) {
           progressTimeRef.current = time;
-          setProgress(Math.min(100, (container.scrollTop / maxScroll) * 100));
+          const nextProgress = Math.min(100, (container.scrollTop / maxScroll) * 100);
+          progressRef.current = nextProgress;
+          setProgress(nextProgress);
         }
         if (container.scrollTop >= maxScroll - 2) setIsPlaying(false);
       }
@@ -304,8 +322,8 @@ export function Teleprompter({ script, wpm, onExit }: TeleprompterProps) {
       {countdown > 0 && <button type="button" aria-label="Cancel countdown" onClick={() => setCountdown(0)} className="fixed inset-0 z-[70] flex items-center justify-center bg-black/35 backdrop-blur-[3px]"><span className="font-display text-[clamp(6rem,20vw,16rem)] font-extrabold tabular-nums text-white">{countdown}</span></button>}
       {voiceStatus && <div className="fixed left-1/2 top-5 z-50 -translate-x-1/2 rounded-full border border-white/10 bg-black/65 px-3 py-1.5 text-[10px] font-semibold text-white/65 backdrop-blur">{voiceStatus}</div>}
       {showShortcuts && <div className="glass-panel fixed left-1/2 top-1/2 z-[80] w-[calc(100%-2rem)] max-w-sm -translate-x-1/2 -translate-y-1/2 rounded-2xl p-5" role="dialog" aria-modal="true" aria-label="Keyboard shortcuts"><div className="mb-4 flex items-center justify-between"><h2 className="font-bold">Shortcuts</h2><button onClick={() => setShowShortcuts(false)} aria-label="Close shortcuts"><X className="h-4 w-4" /></button></div><div className="space-y-2 text-sm text-white/65"><p><kbd>Space</kbd> Play / pause</p><p><kbd>↑ ↓</kbd> Adjust speed</p><p><kbd>R</kbd> Reset</p><p><kbd>M</kbd> Mirror</p><p><kbd>V</kbd> Voice follow</p><p><kbd>S</kbd> Style</p><p><kbd>F</kbd> Fullscreen</p><p><kbd>?</kbd> Shortcuts</p><p><kbd>Esc</kbd> Close / exit</p></div><p className="mt-4 text-[11px] text-white/35">Single-key shortcuts can be disabled below.</p></div>}
-      <div className={`fixed bottom-4 left-1/2 z-50 w-[calc(100%-1rem)] max-w-5xl -translate-x-1/2 transition-all duration-300 sm:bottom-6 sm:w-auto ${showHUD ? 'translate-y-0 opacity-100' : 'pointer-events-none translate-y-24 opacity-0'}`}>
-        <div className="glass-panel rounded-[1.4rem] p-2 sm:rounded-full sm:p-2.5"><div className="flex flex-wrap items-center justify-center gap-1 sm:flex-nowrap sm:gap-2">
+      <div className={`fixed bottom-4 left-1/2 z-50 w-[calc(100%-1rem)] max-w-[calc(100vw-1rem)] -translate-x-1/2 transition-all duration-300 sm:bottom-6 sm:w-auto ${showHUD ? 'translate-y-0 opacity-100' : 'pointer-events-none translate-y-24 opacity-0'}`}>
+        <div className="glass-panel rounded-[1.4rem] p-2 sm:rounded-full sm:p-2.5"><div className="hud-scroll flex max-w-full flex-nowrap items-center justify-start gap-1 overflow-x-auto sm:justify-center sm:gap-2">
           <button onClick={togglePlay} aria-label={isPlaying ? 'Pause scrolling' : 'Start scrolling'} className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-violet-500 text-white shadow-[0_10px_35px_rgba(139,92,246,.25)] transition duration-200 hover:scale-105 hover:bg-violet-400 active:scale-95 sm:h-16 sm:w-16">{isPlaying ? <Pause className="h-6 w-6 fill-current" /> : <Play className="ml-1 h-6 w-6 fill-current" />}</button>
           <div className="flex items-center gap-1 rounded-full bg-white/[.05] px-2 py-1.5"><button onClick={() => setSpeedMultiplier((v) => Math.max(.2, +(v - .1).toFixed(1)))} aria-label="Decrease speed" className="rounded-full p-2 text-white/55 hover:bg-white/10 hover:text-white"><ArrowDown className="h-4 w-4" /></button><span className="min-w-12 text-center text-[10px] font-bold tabular-nums text-white/60"><Gauge className="mx-auto mb-0.5 h-4 w-4" />{speedMultiplier.toFixed(1)}×</span><button onClick={() => setSpeedMultiplier((v) => Math.min(5, +(v + .1).toFixed(1)))} aria-label="Increase speed" className="rounded-full p-2 text-white/55 hover:bg-white/10 hover:text-white"><ArrowUp className="h-4 w-4" /></button></div>
           <button onClick={resetScroll} className="control-btn" aria-label="Reset script"><RotateCcw className="h-5 w-5" /><span>Reset</span></button>
@@ -316,7 +334,7 @@ export function Teleprompter({ script, wpm, onExit }: TeleprompterProps) {
           <button onClick={() => setShowSettings((v) => !v)} className={`control-btn ${showSettings ? 'active-control' : ''}`} aria-label="Open style settings"><Settings2 className="h-5 w-5" /><span>Style</span></button>
           <button onClick={toggleFullscreen} className="control-btn" aria-label={isFullscreen ? 'Exit fullscreen' : 'Enter fullscreen'}>{isFullscreen ? <Minimize className="h-5 w-5" /> : <Maximize className="h-5 w-5" />}<span>Screen</span></button>
           <button onClick={() => setShowShortcuts((v) => !v)} className="control-btn" aria-label="Keyboard shortcuts"><span className="text-base leading-none">?</span><span>Keys</span></button>
-          <button onClick={onExit} className="control-btn text-red-300/70 hover:bg-red-500/10 hover:text-red-200" aria-label="Exit teleprompter"><X className="h-5 w-5" /><span>Exit</span></button>
+          <button onClick={exitPrompter} className="control-btn text-red-300/70 hover:bg-red-500/10 hover:text-red-200" aria-label="Exit teleprompter"><X className="h-5 w-5" /><span>Exit</span></button>
         </div></div>
       </div>
       {showSettings && <div className="glass-panel fixed bottom-24 left-1/2 z-[60] w-[calc(100%-1.5rem)] max-w-md -translate-x-1/2 rounded-2xl p-4" role="dialog" aria-label="Display settings"><div className="mb-4 flex items-center justify-between"><h2 className="text-sm font-bold">Display</h2><button onClick={() => setShowSettings(false)} aria-label="Close settings"><X className="h-4 w-4 text-white/50" /></button></div><div className="space-y-4 text-xs text-white/60"><label className="block">Text size<input aria-label="Text size" type="range" min="32" max="140" value={fontSize} onChange={(e) => setFontSize(Number(e.target.value))} className="range-clean mt-2 w-full" /></label><label className="block">Text width<input aria-label="Text width" type="range" min="600" max="1800" step="50" value={textWidth} onChange={(e) => setTextWidth(Number(e.target.value))} className="range-clean mt-2 w-full" /></label><label className="block">Line spacing<input aria-label="Line spacing" type="range" min="1.1" max="1.8" step=".05" value={lineHeight} onChange={(e) => setLineHeight(Number(e.target.value))} className="range-clean mt-2 w-full" /></label><label className="block">Typeface<select aria-label="Typeface" value={fontFamily} onChange={(e) => setFontFamily(e.target.value)} className="mt-2 w-full rounded-lg border border-white/10 bg-white/5 p-2 text-white outline-none"><option value={FONT_FAMILIES[0].value}>Clean</option><option value={FONT_FAMILIES[1].value}>Classic</option><option value={FONT_FAMILIES[2].value}>Creator</option></select></label><label className="flex items-center justify-between gap-4"><span>Single-key shortcuts</span><input type="checkbox" checked={shortcutsEnabled} onChange={(e) => setShortcutsEnabled(e.target.checked)} aria-label="Enable single-key shortcuts" /></label></div></div>}
