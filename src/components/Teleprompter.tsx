@@ -74,6 +74,8 @@ export function Teleprompter({ script, wpm, onExit }: TeleprompterProps) {
   const hudTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const recognitionRef = useRef<SpeechRecognitionInstance | null>(null);
   const wakeLockRef = useRef<{ release: () => Promise<void> } | null>(null);
+  const voiceSessionRef = useRef(0);
+  const voiceRestartRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const scriptWords = useMemo(() => normalizeWords(script), [script]);
   const wordCount = scriptWords.length;
 
@@ -146,6 +148,11 @@ export function Teleprompter({ script, wpm, onExit }: TeleprompterProps) {
   };
 
   const stopVoice = () => {
+    voiceSessionRef.current += 1;
+    if (voiceRestartRef.current) {
+      clearTimeout(voiceRestartRef.current);
+      voiceRestartRef.current = null;
+    }
     recognitionRef.current?.stop();
     recognitionRef.current = null;
     setVoiceListening(false);
@@ -159,6 +166,7 @@ export function Teleprompter({ script, wpm, onExit }: TeleprompterProps) {
       return;
     }
     stopVoice();
+    const session = ++voiceSessionRef.current;
     const recognition = new Recognition();
     recognition.continuous = true;
     recognition.interimResults = true;
@@ -197,7 +205,12 @@ export function Teleprompter({ script, wpm, onExit }: TeleprompterProps) {
     recognition.onerror = () => setVoiceStatus('Microphone or speech recognition stopped.');
     recognition.onend = () => {
       setVoiceListening(false);
-      if (voiceEnabled) setVoiceStatus('Voice follow paused.');
+      if (!voiceEnabled || session !== voiceSessionRef.current) return;
+      setVoiceStatus('Voice follow reconnecting…');
+      voiceRestartRef.current = setTimeout(() => {
+        voiceRestartRef.current = null;
+        if (voiceEnabled && session === voiceSessionRef.current) startVoice();
+      }, 350);
     };
     recognitionRef.current = recognition;
     try {
@@ -305,6 +318,7 @@ export function Teleprompter({ script, wpm, onExit }: TeleprompterProps) {
 
   const togglePlay = () => {
     if (isPlaying) { setIsPlaying(false); return; }
+    if (countdown > 0) { setCountdown(0); return; }
     setCountdown(3);
   };
 
@@ -322,7 +336,7 @@ export function Teleprompter({ script, wpm, onExit }: TeleprompterProps) {
       {countdown > 0 && <button type="button" aria-label="Cancel countdown" onClick={() => setCountdown(0)} className="fixed inset-0 z-[70] flex items-center justify-center bg-black/35 backdrop-blur-[3px]"><span className="font-display text-[clamp(6rem,20vw,16rem)] font-extrabold tabular-nums text-white">{countdown}</span></button>}
       {voiceStatus && <div className="fixed left-1/2 top-5 z-50 -translate-x-1/2 rounded-full border border-white/10 bg-black/65 px-3 py-1.5 text-[10px] font-semibold text-white/65 backdrop-blur">{voiceStatus}</div>}
       {showShortcuts && <div className="glass-panel fixed left-1/2 top-1/2 z-[80] w-[calc(100%-2rem)] max-w-sm -translate-x-1/2 -translate-y-1/2 rounded-2xl p-5" role="dialog" aria-modal="true" aria-label="Keyboard shortcuts"><div className="mb-4 flex items-center justify-between"><h2 className="font-bold">Shortcuts</h2><button onClick={() => setShowShortcuts(false)} aria-label="Close shortcuts"><X className="h-4 w-4" /></button></div><div className="space-y-2 text-sm text-white/65"><p><kbd>Space</kbd> Play / pause</p><p><kbd>↑ ↓</kbd> Adjust speed</p><p><kbd>R</kbd> Reset</p><p><kbd>M</kbd> Mirror</p><p><kbd>V</kbd> Voice follow</p><p><kbd>S</kbd> Style</p><p><kbd>F</kbd> Fullscreen</p><p><kbd>?</kbd> Shortcuts</p><p><kbd>Esc</kbd> Close / exit</p></div><p className="mt-4 text-[11px] text-white/35">Single-key shortcuts can be disabled below.</p></div>}
-      <div className={`fixed bottom-4 left-1/2 z-50 w-[calc(100%-1rem)] max-w-[calc(100vw-1rem)] -translate-x-1/2 transition-all duration-300 sm:bottom-6 sm:w-auto ${showHUD ? 'translate-y-0 opacity-100' : 'pointer-events-none translate-y-24 opacity-0'}`}>
+      <div className={`teleqen-hud fixed left-1/2 z-50 w-[calc(100%-1rem)] max-w-[calc(100vw-1rem)] -translate-x-1/2 transition-all duration-300 sm:bottom-6 sm:w-auto ${showHUD ? 'translate-y-0 opacity-100' : 'pointer-events-none translate-y-24 opacity-0'}`}>
         <div className="glass-panel rounded-[1.4rem] p-2 sm:rounded-full sm:p-2.5"><div className="hud-scroll flex max-w-full flex-nowrap items-center justify-start gap-1 overflow-x-auto sm:justify-center sm:gap-2">
           <button onClick={togglePlay} aria-label={isPlaying ? 'Pause scrolling' : 'Start scrolling'} className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-violet-500 text-white shadow-[0_10px_35px_rgba(139,92,246,.25)] transition duration-200 hover:scale-105 hover:bg-violet-400 active:scale-95 sm:h-16 sm:w-16">{isPlaying ? <Pause className="h-6 w-6 fill-current" /> : <Play className="ml-1 h-6 w-6 fill-current" />}</button>
           <div className="flex items-center gap-1 rounded-full bg-white/[.05] px-2 py-1.5"><button onClick={() => setSpeedMultiplier((v) => Math.max(.2, +(v - .1).toFixed(1)))} aria-label="Decrease speed" className="rounded-full p-2 text-white/55 hover:bg-white/10 hover:text-white"><ArrowDown className="h-4 w-4" /></button><span className="min-w-12 text-center text-[10px] font-bold tabular-nums text-white/60"><Gauge className="mx-auto mb-0.5 h-4 w-4" />{speedMultiplier.toFixed(1)}×</span><button onClick={() => setSpeedMultiplier((v) => Math.min(5, +(v + .1).toFixed(1)))} aria-label="Increase speed" className="rounded-full p-2 text-white/55 hover:bg-white/10 hover:text-white"><ArrowUp className="h-4 w-4" /></button></div>
@@ -337,7 +351,7 @@ export function Teleprompter({ script, wpm, onExit }: TeleprompterProps) {
           <button onClick={exitPrompter} className="control-btn text-red-300/70 hover:bg-red-500/10 hover:text-red-200" aria-label="Exit teleprompter"><X className="h-5 w-5" /><span>Exit</span></button>
         </div></div>
       </div>
-      {showSettings && <div className="glass-panel fixed bottom-24 left-1/2 z-[60] w-[calc(100%-1.5rem)] max-w-md -translate-x-1/2 rounded-2xl p-4" role="dialog" aria-label="Display settings"><div className="mb-4 flex items-center justify-between"><h2 className="text-sm font-bold">Display</h2><button onClick={() => setShowSettings(false)} aria-label="Close settings"><X className="h-4 w-4 text-white/50" /></button></div><div className="space-y-4 text-xs text-white/60"><label className="block">Text size<input aria-label="Text size" type="range" min="32" max="140" value={fontSize} onChange={(e) => setFontSize(Number(e.target.value))} className="range-clean mt-2 w-full" /></label><label className="block">Text width<input aria-label="Text width" type="range" min="600" max="1800" step="50" value={textWidth} onChange={(e) => setTextWidth(Number(e.target.value))} className="range-clean mt-2 w-full" /></label><label className="block">Line spacing<input aria-label="Line spacing" type="range" min="1.1" max="1.8" step=".05" value={lineHeight} onChange={(e) => setLineHeight(Number(e.target.value))} className="range-clean mt-2 w-full" /></label><label className="block">Typeface<select aria-label="Typeface" value={fontFamily} onChange={(e) => setFontFamily(e.target.value)} className="mt-2 w-full rounded-lg border border-white/10 bg-white/5 p-2 text-white outline-none"><option value={FONT_FAMILIES[0].value}>Clean</option><option value={FONT_FAMILIES[1].value}>Classic</option><option value={FONT_FAMILIES[2].value}>Creator</option></select></label><label className="flex items-center justify-between gap-4"><span>Single-key shortcuts</span><input type="checkbox" checked={shortcutsEnabled} onChange={(e) => setShortcutsEnabled(e.target.checked)} aria-label="Enable single-key shortcuts" /></label></div></div>}
+      {showSettings && <div className="teleqen-settings glass-panel fixed left-1/2 z-[60] w-[calc(100%-1.5rem)] max-w-md -translate-x-1/2 rounded-2xl p-4" role="dialog" aria-label="Display settings"><div className="mb-4 flex items-center justify-between"><h2 className="text-sm font-bold">Display</h2><button onClick={() => setShowSettings(false)} aria-label="Close settings"><X className="h-4 w-4 text-white/50" /></button></div><div className="space-y-4 text-xs text-white/60"><label className="block">Text size<input aria-label="Text size" type="range" min="32" max="140" value={fontSize} onChange={(e) => setFontSize(Number(e.target.value))} className="range-clean mt-2 w-full" /></label><label className="block">Text width<input aria-label="Text width" type="range" min="600" max="1800" step="50" value={textWidth} onChange={(e) => setTextWidth(Number(e.target.value))} className="range-clean mt-2 w-full" /></label><label className="block">Line spacing<input aria-label="Line spacing" type="range" min="1.1" max="1.8" step=".05" value={lineHeight} onChange={(e) => setLineHeight(Number(e.target.value))} className="range-clean mt-2 w-full" /></label><label className="block">Typeface<select aria-label="Typeface" value={fontFamily} onChange={(e) => setFontFamily(e.target.value)} className="mt-2 w-full rounded-lg border border-white/10 bg-white/5 p-2 text-white outline-none"><option value={FONT_FAMILIES[0].value}>Clean</option><option value={FONT_FAMILIES[1].value}>Classic</option><option value={FONT_FAMILIES[2].value}>Creator</option></select></label><label className="flex items-center justify-between gap-4"><span>Single-key shortcuts</span><input type="checkbox" checked={shortcutsEnabled} onChange={(e) => setShortcutsEnabled(e.target.checked)} aria-label="Enable single-key shortcuts" /></label></div></div>}
     </motion.div>
   );
 }
