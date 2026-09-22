@@ -256,7 +256,7 @@ export function Teleprompter({ script, wpm, onExit }: TeleprompterProps) {
       onClick={wakeHUD}
     >
       <div className="pointer-events-none fixed inset-x-0 top-0 z-40 h-[2px] bg-white/5">
-        <div className="prompter-progress h-full transition-[width] duration-150" style={{ width: \`\${progress}%\` }} />
+        <div className="prompter-progress h-full transition-[width] duration-150" style={{ width: `${progress}%` }} />
       </div>
 
       <div className="pointer-events-none fixed left-5 top-5 z-40 hidden items-center gap-2 sm:flex">
@@ -277,12 +277,12 @@ export function Teleprompter({ script, wpm, onExit }: TeleprompterProps) {
         style={{ transform: isFlipped ? 'scaleX(-1)' : undefined }}
         aria-label="Teleprompter script"
       >
-        <article className="mx-auto" style={{ maxWidth: \`\${textWidth}px\`, fontFamily, lineHeight }}>
+        <article className="mx-auto" style={{ maxWidth: `${textWidth}px`, fontFamily, lineHeight }}>
           {script.split('\n').map((paragraph, index) => (
             <p
-              key={\`\${index}-\${paragraph.slice(0, 12)}\`}
+              key={`${index}-${paragraph.slice(0, 12)}`}
               className="mb-[.8em] whitespace-pre-wrap break-words text-center font-semibold tracking-[.008em] text-white drop-shadow-[0_2px_10px_rgba(0,0,0,.85)]"
-              style={{ fontSize: \`clamp(32px, \${fontSize / 10}vw, \${fontSize}px)\` }}
+              style={{ fontSize: `clamp(32px, ${fontSize / 10}vw, ${fontSize}px)` }}
             >
               {paragraph || '\u00A0'}
             </p>
@@ -302,7 +302,7 @@ export function Teleprompter({ script, wpm, onExit }: TeleprompterProps) {
         </button>
       )}
 
-      <div className={\`teleqen-hud fixed left-1/2 z-50 w-[calc(100%-1rem)] max-w-[calc(100vw-1rem)] -translate-x-1/2 transition-all duration-300 sm:bottom-6 sm:w-auto \${showHUD ? 'translate-y-0 opacity-100' : 'pointer-events-none translate-y-24 opacity-0'}\`}>
+      <div className={`teleqen-hud fixed left-1/2 z-50 w-[calc(100%-1rem)] max-w-[calc(100vw-1rem)] -translate-x-1/2 transition-all duration-300 sm:bottom-6 sm:w-auto ${showHUD ? 'translate-y-0 opacity-100' : 'pointer-events-none translate-y-24 opacity-0'}`}>
         <div className="prompter-glass glass-panel rounded-[1.4rem] p-1.5 sm:rounded-full sm:p-2.5">
           <div className="hud-scroll flex max-w-full flex-nowrap items-center justify-start gap-0.5 overflow-x-auto sm:justify-center sm:gap-2">
             <button
@@ -326,10 +326,10 @@ export function Teleprompter({ script, wpm, onExit }: TeleprompterProps) {
             </div>
 
             <button onClick={resetScroll} className="control-btn" aria-label="Reset script"><RotateCcw className="h-5 w-5" /><span>Reset</span></button>
-            <button onClick={() => setIsFlipped((v) => !v)} className={\`control-btn \${isFlipped ? 'active-control' : ''}\`} aria-label="Toggle mirror"><FlipHorizontal className="h-5 w-5" /><span>Mirror</span></button>
-            <button onClick={() => setShowFocusLine((v) => !v)} className={\`control-btn hidden sm:flex \${showFocusLine ? 'active-control' : ''}\`} aria-label="Toggle focus line"><Target className="h-5 w-5" /><span>Focus</span></button>
-            <button onClick={() => setSoundEnabled((v) => !v)} className={\`control-btn hidden sm:flex \${soundEnabled ? '' : 'text-white/30'}\`} aria-label={soundEnabled ? 'Mute countdown' : 'Enable countdown sound'}>{soundEnabled ? <Volume2 className="h-5 w-5" /> : <VolumeX className="h-5 w-5" />}<span>Sound</span></button>
-            <button onClick={() => setShowSettings((v) => !v)} className={\`control-btn \${showSettings ? 'active-control' : ''}\`} aria-label="Open display settings"><Settings2 className="h-5 w-5" /><span>Style</span></button>
+            <button onClick={() => setIsFlipped((v) => !v)} className={`control-btn ${isFlipped ? 'active-control' : ''}`} aria-label="Toggle mirror"><FlipHorizontal className="h-5 w-5" /><span>Mirror</span></button>
+            <button onClick={() => setShowFocusLine((v) => !v)} className={`control-btn hidden sm:flex ${showFocusLine ? 'active-control' : ''}`} aria-label="Toggle focus line"><Target className="h-5 w-5" /><span>Focus</span></button>
+            <button onClick={() => setSoundEnabled((v) => !v)} className={`control-btn hidden sm:flex ${soundEnabled ? '' : 'text-white/30'}`} aria-label={soundEnabled ? 'Mute countdown' : 'Enable countdown sound'}>{soundEnabled ? <Volume2 className="h-5 w-5" /> : <VolumeX className="h-5 w-5" />}<span>Sound</span></button>
+            <button onClick={() => setShowSettings((v) => !v)} className={`control-btn ${showSettings ? 'active-control' : ''}`} aria-label="Open display settings"><Settings2 className="h-5 w-5" /><span>Style</span></button>
             <button onClick={toggleFullscreen} className="control-btn" aria-label={isFullscreen ? 'Exit fullscreen' : 'Enter fullscreen'}>{isFullscreen ? <Minimize className="h-5 w-5" /> : <Maximize className="h-5 w-5" />}<span>Screen</span></button>
             <button onClick={exitPrompter} className="control-btn text-red-300/70 hover:bg-red-500/10 hover:text-red-200" aria-label="Exit teleprompter"><X className="h-5 w-5" /><span>Exit</span></button>
           </div>
@@ -351,8 +351,8 @@ export function Teleprompter({ script, wpm, onExit }: TeleprompterProps) {
             <label className="block">Line spacing<output className="float-right text-white/35">{lineHeight.toFixed(2)}</output><input aria-label="Line spacing" type="range" min="1.1" max="1.8" step=".05" value={lineHeight} onChange={(e) => setLineHeight(Number(e.target.value))} className="range-clean mt-2 w-full" /></label>
             <label className="block">Typeface<select aria-label="Typeface" value={fontFamily} onChange={(e) => setFontFamily(e.target.value)} className="mt-2 w-full rounded-lg border border-white/10 bg-white/5 p-2 text-white outline-none"><option value={FONT_FAMILIES[0].value}>Clean</option><option value={FONT_FAMILIES[1].value}>Classic</option><option value={FONT_FAMILIES[2].value}>Creator</option></select></label>
             <div className="grid grid-cols-2 gap-2 pt-1">
-              <button type="button" onClick={() => setShowFocusLine((v) => !v)} className={\`rounded-xl border p-3 text-left \${showFocusLine ? 'active-control border-violet-400/20' : 'border-white/10 bg-white/[.03]'}\`}><span className="block text-[10px] font-bold uppercase tracking-wider text-white/35">Focus line</span><span className="mt-1 block text-xs font-semibold text-white/70">{showFocusLine ? 'On' : 'Off'}</span></button>
-              <button type="button" onClick={() => setSoundEnabled((v) => !v)} className={\`rounded-xl border p-3 text-left \${soundEnabled ? 'active-control border-violet-400/20' : 'border-white/10 bg-white/[.03]'}\`}><span className="block text-[10px] font-bold uppercase tracking-wider text-white/35">Countdown sound</span><span className="mt-1 block text-xs font-semibold text-white/70">{soundEnabled ? 'On' : 'Off'}</span></button>
+              <button type="button" onClick={() => setShowFocusLine((v) => !v)} className={`rounded-xl border p-3 text-left ${showFocusLine ? 'active-control border-violet-400/20' : 'border-white/10 bg-white/[.03]'}`}><span className="block text-[10px] font-bold uppercase tracking-wider text-white/35">Focus line</span><span className="mt-1 block text-xs font-semibold text-white/70">{showFocusLine ? 'On' : 'Off'}</span></button>
+              <button type="button" onClick={() => setSoundEnabled((v) => !v)} className={`rounded-xl border p-3 text-left ${soundEnabled ? 'active-control border-violet-400/20' : 'border-white/10 bg-white/[.03]'}`}><span className="block text-[10px] font-bold uppercase tracking-wider text-white/35">Countdown sound</span><span className="mt-1 block text-xs font-semibold text-white/70">{soundEnabled ? 'On' : 'Off'}</span></button>
             </div>
             <div className="rounded-xl border border-white/[.06] bg-white/[.025] p-3 text-[10px] leading-5 text-white/35">
               <span className="font-semibold text-white/55">Tip:</span> Tap the script to pause or start. Controls fade away while you read.
