@@ -24,7 +24,8 @@
     "preview": "vite preview",
     "clean": "rm -rf dist",
     "lint": "tsc --noEmit",
-    "test": "npm run lint && npm run build && node scripts/smoke.mjs"
+    "test": "npm run lint && npm run build && node scripts/smoke.mjs && npm run e2e",
+    "e2e": "playwright test"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.14",
@@ -39,7 +40,8 @@
     "autoprefixer": "^10.4.21",
     "tailwindcss": "^4.1.0",
     "typescript": "~5.8.2",
-    "@types/node": "^22.15.0"
+    "@types/node": "^22.15.0",
+    "@playwright/test": "^1.63.0"
   },
   "engines": {
     "node": ">=20"
