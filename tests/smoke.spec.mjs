@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 test('creator flow works on desktop and mobile without voice or keys controls', async ({ page }) => {
-  const errors:string[]=[];
+  const errors=[];
   page.on('console', msg => { if (msg.type() === 'error') errors.push(msg.text()); });
   await page.goto('/');
   await expect(page).toHaveTitle(/Teleqen/i);
