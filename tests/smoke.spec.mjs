@@ -8,7 +8,7 @@ test('creator flow works on desktop and mobile without voice or keys controls', 
 
   const editor = page.getByLabel('Script text');
   await editor.fill('Welcome to Teleqen.\nThis is a real creator workflow test.');
-  await expect(page.getByText('Start reading')).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Start reading' })).toBeVisible();
   await page.getByRole('button', { name: /Start reading/i }).click();
 
   await expect(page.getByLabel('Teleprompter script')).toBeVisible();
