@@ -55,3 +55,173 @@
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; }
 }
+
+
+/* ── Teleqen Aurora Studio theme ─────────────────────────────────────── */
+:root {
+  --tq-bg: #05070b;
+  --tq-panel: rgba(11, 15, 24, .78);
+  --tq-panel-strong: rgba(13, 18, 29, .94);
+  --tq-line: rgba(255,255,255,.085);
+  --tq-muted: rgba(226,232,240,.48);
+  --tq-cyan: #67e8f9;
+  --tq-violet: #a78bfa;
+  --tq-green: #a3e635;
+}
+
+@layer utilities {
+  main:has(.editor-card) {
+    position: relative;
+    overflow: hidden;
+    background:
+      radial-gradient(900px 500px at 8% -8%, rgba(103,232,249,.105), transparent 60%),
+      radial-gradient(800px 520px at 92% 0%, rgba(167,139,250,.13), transparent 58%),
+      radial-gradient(700px 500px at 50% 110%, rgba(163,230,53,.035), transparent 60%),
+      var(--tq-bg) !important;
+  }
+
+  main:has(.editor-card)::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+      linear-gradient(rgba(255,255,255,.018) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.018) 1px, transparent 1px);
+    background-size: 44px 44px;
+    mask-image: linear-gradient(to bottom, black, transparent 82%);
+    opacity: .35;
+  }
+
+  main:has(.editor-card) > div { position: relative; z-index: 1; }
+
+  main:has(.editor-card) header {
+    border-color: rgba(255,255,255,.09) !important;
+  }
+
+  main:has(.editor-card) header h1 {
+    letter-spacing: -.045em;
+    text-shadow: 0 0 28px rgba(103,232,249,.12);
+  }
+
+  main:has(.editor-card) header img,
+  main:has(.editor-card) .editor-card img {
+    box-shadow: 0 0 0 1px rgba(255,255,255,.08), 0 12px 40px rgba(0,0,0,.45), 0 0 34px rgba(103,232,249,.08);
+  }
+
+  .editor-card {
+    position: relative;
+    isolation: isolate;
+    background: linear-gradient(145deg, rgba(15,20,31,.92), rgba(7,10,16,.96)) !important;
+    border: 1px solid rgba(255,255,255,.095) !important;
+    box-shadow:
+      0 40px 120px rgba(0,0,0,.48),
+      0 0 0 1px rgba(103,232,249,.025),
+      inset 0 1px rgba(255,255,255,.045) !important;
+    backdrop-filter: blur(24px);
+  }
+
+  .editor-card::before {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; top: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(103,232,249,.55), rgba(167,139,250,.55), transparent);
+    opacity: .65;
+    pointer-events: none;
+  }
+
+  .editor-card > div:first-child {
+    background: linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,.012)) !important;
+    border-color: rgba(255,255,255,.075) !important;
+  }
+
+  .editor-card textarea {
+    caret-color: var(--tq-cyan);
+    text-wrap: pretty;
+  }
+
+  .editor-card textarea:focus {
+    background: radial-gradient(circle at 50% 0%, rgba(103,232,249,.028), transparent 55%);
+  }
+
+  .editor-card input[aria-label="Script name"] {
+    border-radius: .6rem;
+    transition: background .2s ease, box-shadow .2s ease;
+  }
+
+  .editor-card input[aria-label="Script name"]:focus {
+    background: rgba(255,255,255,.035);
+    box-shadow: inset 0 0 0 1px rgba(103,232,249,.12);
+  }
+
+  main:has(.editor-card) label {
+    border-color: rgba(255,255,255,.10) !important;
+    background: rgba(255,255,255,.035) !important;
+  }
+
+  main:has(.editor-card) label:hover {
+    border-color: rgba(103,232,249,.22) !important;
+    background: rgba(103,232,249,.055) !important;
+  }
+
+  main:has(.editor-card) button.bg-white:not(:disabled) {
+    background: linear-gradient(135deg, #f8fafc, #c4f1f8) !important;
+    box-shadow: 0 10px 35px rgba(103,232,249,.10);
+  }
+
+  main:has(.editor-card) .editor-card > div:last-child {
+    background: rgba(255,255,255,.012);
+  }
+
+  /* Prompter: cinematic reading environment */
+  .teleqen-prompter {
+    background:
+      radial-gradient(1000px 620px at 50% -20%, rgba(103,232,249,.07), transparent 58%),
+      radial-gradient(900px 700px at 50% 120%, rgba(167,139,250,.045), transparent 60%),
+      #030509;
+  }
+
+  .prompter-brand {
+    filter: drop-shadow(0 0 18px rgba(103,232,249,.16));
+  }
+
+  .prompter-progress {
+    background: linear-gradient(90deg, var(--tq-cyan), var(--tq-violet)) !important;
+    box-shadow: 0 0 18px rgba(103,232,249,.35);
+  }
+
+  .prompter-focus {
+    border-color: rgba(103,232,249,.18) !important;
+    background: linear-gradient(90deg, transparent, rgba(103,232,249,.045), transparent) !important;
+    box-shadow: 0 0 70px rgba(103,232,249,.035);
+  }
+
+  .prompter-script {
+    text-shadow: 0 3px 22px rgba(0,0,0,.9), 0 0 45px rgba(255,255,255,.025);
+  }
+
+  .prompter-glass {
+    background: rgba(9,13,21,.76) !important;
+    border-color: rgba(255,255,255,.10) !important;
+    box-shadow: 0 25px 90px rgba(0,0,0,.5), inset 0 1px rgba(255,255,255,.04) !important;
+    backdrop-filter: blur(28px) saturate(130%);
+  }
+
+  .prompter-primary {
+    background: linear-gradient(135deg, #67e8f9, #8b5cf6) !important;
+    color: #020409 !important;
+    box-shadow: 0 12px 40px rgba(103,232,249,.18), inset 0 1px rgba(255,255,255,.45);
+  }
+
+  .prompter-primary:hover { filter: brightness(1.08); }
+
+  @media (max-width: 640px) {
+    main:has(.editor-card) {
+      background:
+        radial-gradient(500px 360px at 15% -5%, rgba(103,232,249,.09), transparent 65%),
+        radial-gradient(500px 360px at 100% 10%, rgba(167,139,250,.10), transparent 65%),
+        var(--tq-bg) !important;
+    }
+  }
+}
