@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, type PointerEvent } from 'react';
 import { Camera, FlipHorizontal, Maximize2, Minimize2, X } from 'lucide-react';
 
 export function VideoOverlay({ onClose }: { onClose: () => void }) {
@@ -23,8 +23,8 @@ export function VideoOverlay({ onClose }: { onClose: () => void }) {
 
   useEffect(() => { if (videoRef.current && stream) videoRef.current.srcObject = stream; }, [stream]);
   const close = () => { stream?.getTracks().forEach((track) => track.stop()); onClose(); };
-  const onPointerDown = (event: React.PointerEvent<HTMLDivElement>) => { const box = event.currentTarget; const rect = box.getBoundingClientRect(); dragRef.current = { active: true, x: event.clientX, y: event.clientY, left: rect.left, top: rect.top }; box.setPointerCapture(event.pointerId); };
-  const onPointerMove = (event: React.PointerEvent<HTMLDivElement>) => {
+  const onPointerDown = (event: PointerEvent<HTMLDivElement>) => { const box = event.currentTarget; const rect = box.getBoundingClientRect(); dragRef.current = { active: true, x: event.clientX, y: event.clientY, left: rect.left, top: rect.top }; box.setPointerCapture(event.pointerId); };
+  const onPointerMove = (event: PointerEvent<HTMLDivElement>) => {
     if (!dragRef.current.active) return;
     const box = event.currentTarget;
     const nextLeft = Math.max(8, Math.min(window.innerWidth - box.offsetWidth - 8, dragRef.current.left + event.clientX - dragRef.current.x));
