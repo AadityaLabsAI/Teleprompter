@@ -408,3 +408,13 @@ html[data-theme="light"] .teleqen-camera { background:rgba(255,255,255,.88); bor
   .hero-copy p { font-size:14px; }
   .landing-footer span:nth-child(2) { display:none; }
 }
+
+html[data-theme="light"] .teleqen-prompter { background:radial-gradient(1000px 620px at 50% -20%,rgba(56,189,248,.08),transparent 58%),#f4f6fa; color:#111827; }
+html[data-theme="light"] .teleqen-prompter .prompter-script p { color:#172033!important; text-shadow:none!important; }
+html[data-theme="light"] .teleqen-prompter .prompter-glass { background:rgba(255,255,255,.78)!important; border-color:rgba(15,23,42,.10)!important; box-shadow:0 25px 80px rgba(15,23,42,.12),inset 0 1px rgba(255,255,255,.9)!important; }
+html[data-theme="light"] .teleqen-prompter .control-btn { color:rgba(23,32,51,.58); }
+html[data-theme="light"] .teleqen-prompter .control-btn:hover { background:rgba(15,23,42,.06); color:#111827; }
+html[data-theme="light"] .teleqen-prompter .active-control { background:rgba(124,58,237,.10); color:#6d28d9; }
+html[data-theme="light"] .teleqen-prompter .prompter-focus { border-color:rgba(37,99,235,.18)!important; background:linear-gradient(90deg,transparent,rgba(37,99,235,.045),transparent)!important; }
+html[data-theme="light"] .teleqen-prompter .text-white\/30,html[data-theme="light"] .teleqen-prompter .text-white\/45,html[data-theme="light"] .teleqen-prompter .text-white\/50,html[data-theme="light"] .teleqen-prompter .text-white\/60 { color:rgba(23,32,51,.52)!important; }
+html[data-theme="light"] .teleqen-prompter select { color:#172033!important; background:rgba(15,23,42,.04)!important; }
