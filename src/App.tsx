@@ -83,11 +83,11 @@ export default function App() {
 
   return (
     <AnimatePresence mode="wait">
-      {mode === 'landing' && <Landing key="landing" onStart={() => setMode('editor')} theme={theme} setTheme={setTheme} />}
+      {mode === 'landing' && <Landing onStart={() => setMode('editor')} theme={theme} setTheme={setTheme} />}
       {mode === 'editor' && (
-        <Editor key="editor" script={script} setScript={setScript} wpm={wpm} setWpm={setWpm} onPlay={openPrompter} theme={theme} setTheme={setTheme} onHome={() => setMode('landing')} />
+        <Editor script={script} setScript={setScript} wpm={wpm} setWpm={setWpm} onPlay={openPrompter} theme={theme} setTheme={setTheme} onHome={() => setMode('landing')} />
       )}
-      {mode === 'prompter' && <Teleprompter key="prompter" script={script} wpm={wpm} onExit={() => setMode('editor')} theme={theme} />}
+      {mode === 'prompter' && <Teleprompter script={script} wpm={wpm} onExit={() => setMode('editor')} theme={theme} />}
     </AnimatePresence>
   );
 }
