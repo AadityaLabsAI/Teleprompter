@@ -1,15 +1,17 @@
 import { useEffect, useRef, useState } from 'react';
 import {
-  ArrowDown, ArrowUp, FlipHorizontal, Gauge, Maximize, Minimize,
+  ArrowDown, ArrowUp, FlipHorizontal, Gauge, Maximize, Minimize, Video,
   Pause, Play, RotateCcw, Settings2, Target, Volume2, VolumeX, X,
 } from 'lucide-react';
 import { motion } from 'motion/react';
 import { useLocalStorage } from '../hooks/useLocalStorage';
+import { VideoOverlay } from './VideoOverlay';
 
 interface TeleprompterProps {
   script: string;
   wpm: number;
   onExit: () => void;
+  theme?: 'dark' | 'light';
 }
 
 const FONT_FAMILIES = [
@@ -30,6 +32,7 @@ export function Teleprompter({ script, wpm, onExit }: TeleprompterProps) {
   const [soundEnabled, setSoundEnabled] = useLocalStorage('teleqen-sound', true);
   const [showHUD, setShowHUD] = useState(true);
   const [showSettings, setShowSettings] = useState(false);
+  const [showCamera, setShowCamera] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [countdown, setCountdown] = useState(0);
   const [progress, setProgress] = useState(0);
@@ -328,6 +331,7 @@ export function Teleprompter({ script, wpm, onExit }: TeleprompterProps) {
             <button onClick={resetScroll} className="control-btn" aria-label="Reset script"><RotateCcw className="h-5 w-5" /><span>Reset</span></button>
             <button onClick={() => setIsFlipped((v) => !v)} className={`control-btn ${isFlipped ? 'active-control' : ''}`} aria-label="Toggle mirror"><FlipHorizontal className="h-5 w-5" /><span>Mirror</span></button>
             <button onClick={() => setShowFocusLine((v) => !v)} className={`control-btn hidden sm:flex ${showFocusLine ? 'active-control' : ''}`} aria-label="Toggle focus line"><Target className="h-5 w-5" /><span>Focus</span></button>
+            <button onClick={() => setShowCamera((v) => !v)} className={`control-btn hidden sm:flex ${showCamera ? 'active-control' : ''}`} aria-label="Toggle camera preview"><Video className="h-5 w-5" /><span>Video</span></button>
             <button onClick={() => setSoundEnabled((v) => !v)} className={`control-btn hidden sm:flex ${soundEnabled ? '' : 'text-white/30'}`} aria-label={soundEnabled ? 'Mute countdown' : 'Enable countdown sound'}>{soundEnabled ? <Volume2 className="h-5 w-5" /> : <VolumeX className="h-5 w-5" />}<span>Sound</span></button>
             <button onClick={() => setShowSettings((v) => !v)} className={`control-btn ${showSettings ? 'active-control' : ''}`} aria-label="Open display settings"><Settings2 className="h-5 w-5" /><span>Style</span></button>
             <button onClick={toggleFullscreen} className="control-btn" aria-label={isFullscreen ? 'Exit fullscreen' : 'Enter fullscreen'}>{isFullscreen ? <Minimize className="h-5 w-5" /> : <Maximize className="h-5 w-5" />}<span>Screen</span></button>
@@ -336,7 +340,7 @@ export function Teleprompter({ script, wpm, onExit }: TeleprompterProps) {
         </div>
       </div>
 
-      {showSettings && (
+      {showCamera && <VideoOverlay onClose={() => setShowCamera(false)} />}\n\n      {showSettings && (
         <div className="teleqen-settings prompter-glass glass-panel fixed left-1/2 z-[60] w-[calc(100%-1.5rem)] max-w-md -translate-x-1/2 rounded-2xl p-4" role="dialog" aria-label="Display settings">
           <div className="mb-4 flex items-center justify-between">
             <div>
