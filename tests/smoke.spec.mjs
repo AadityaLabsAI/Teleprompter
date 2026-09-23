@@ -6,6 +6,8 @@ test('creator flow works on desktop and mobile without voice or keys controls', 
   await page.goto('/');
   await expect(page).toHaveTitle(/Teleqen/i);
 
+  await expect(page.getByRole('button', { name: /Start creating/i })).toBeVisible();
+  await page.getByRole('button', { name: /Start creating/i }).click();
   const editor = page.getByLabel('Script text');
   await editor.fill('Welcome to Teleqen.\nThis is a real creator workflow test.');
   await expect(page.getByRole('button', { name: 'Start reading' })).toBeVisible();
@@ -15,6 +17,7 @@ test('creator flow works on desktop and mobile without voice or keys controls', 
   await expect(page.getByLabel('Start scrolling')).toBeVisible();
   await expect(page.getByLabel('Toggle mirror')).toBeVisible();
   await expect(page.getByLabel('Open display settings')).toBeVisible();
+  await expect(page.getByLabel('Toggle camera preview')).toBeVisible();
   await expect(page.getByText('Voice', { exact: true })).toHaveCount(0);
   await expect(page.getByText('Keys', { exact: true })).toHaveCount(0);
 
@@ -24,6 +27,8 @@ test('creator flow works on desktop and mobile without voice or keys controls', 
 
   await page.setViewportSize({ width: 390, height: 844 });
   await page.reload();
+  await expect(page.getByRole('button', { name: /Start creating/i })).toBeVisible();
+  await page.getByRole('button', { name: /Start creating/i }).click();
   await expect(page.getByLabel('Script text')).toBeVisible();
   await page.getByLabel('Script text').fill('Mobile creator test');
   await page.getByRole('button', { name: /Start reading/i }).click();
