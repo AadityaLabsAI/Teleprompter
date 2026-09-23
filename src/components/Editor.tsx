@@ -12,7 +12,6 @@ interface EditorProps {
   theme: 'dark' | 'light';
   setTheme: (theme: 'dark' | 'light') => void;
   onHome: () => void;
-  key?: string;
 }
 
 export function Editor({ script, setScript, wpm, setWpm, onPlay, theme, setTheme, onHome }: EditorProps) {
