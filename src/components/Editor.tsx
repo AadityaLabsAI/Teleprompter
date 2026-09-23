@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState, type ChangeEvent } from 'react';
-import { Clock3, Download, FileText, FolderOpen, Play, ShieldCheck, Trash2, Upload } from 'lucide-react';
+import { Clock3, Download, FileText, FolderOpen, Home, Moon, Play, ShieldCheck, Sun, Trash2, Upload } from 'lucide-react';
 import { motion } from 'motion/react';
 import { APP_CONFIG } from '../config';
 
@@ -9,9 +9,12 @@ interface EditorProps {
   wpm: number;
   setWpm: (w: number) => void;
   onPlay: () => void;
+  theme: 'dark' | 'light';
+  setTheme: (theme: 'dark' | 'light') => void;
+  onHome: () => void;
 }
 
-export function Editor({ script, setScript, wpm, setWpm, onPlay }: EditorProps) {
+export function Editor({ script, setScript, wpm, setWpm, onPlay, theme, setTheme, onHome }: EditorProps) {
   const [saved, setSaved] = useState(false);
   const [fileName, setFileName] = useState('My Script');
 
@@ -66,7 +69,7 @@ export function Editor({ script, setScript, wpm, setWpm, onPlay }: EditorProps) 
   };
 
   return (
-    <motion.main initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.25 }} className="min-h-[100dvh] w-full bg-[#070707] px-3 py-3 text-white sm:px-6 sm:py-6 lg:px-10">
+    <motion.main initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.25 }} className="teleqen-app min-h-[100dvh] w-full px-3 py-3 sm:px-6 sm:py-6 lg:px-10">
       <div className="mx-auto flex min-h-[calc(100dvh-1.5rem)] w-full max-w-[1680px] flex-col sm:min-h-[calc(100dvh-3rem)]">
         <header className="mb-4 flex flex-col gap-4 border-b border-white/[.07] pb-4 sm:mb-6 sm:pb-5 lg:flex-row lg:items-center lg:justify-between">
           <div className="flex min-w-0 items-center gap-3">
@@ -80,7 +83,7 @@ export function Editor({ script, setScript, wpm, setWpm, onPlay }: EditorProps) 
             </div>
           </div>
 
-          <div className="flex w-full items-center gap-2 sm:w-auto">
+          <div className="flex w-full items-center gap-2 sm:w-auto">\n            <button onClick={onHome} className="topbar-button" aria-label="Back to home"><Home className="h-4 w-4" /><span className="hidden sm:inline">Home</span></button>\n            <button onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')} className="topbar-button" aria-label="Toggle theme">{theme === 'dark' ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}<span className="hidden sm:inline">{theme === 'dark' ? 'Light' : 'Dark'}</span></button>
             <div className="hidden items-center gap-2 rounded-xl border border-white/[.07] bg-white/[.025] px-3 py-2.5 text-[10px] font-semibold uppercase tracking-[.14em] text-white/35 md:flex"><ShieldCheck className="h-3.5 w-3.5 text-emerald-400/80" /> On-device</div>
             <label className="flex flex-1 cursor-pointer items-center justify-center gap-2 rounded-xl border border-white/[.09] bg-white/[.035] px-4 py-2.5 text-xs font-semibold text-white/65 transition hover:border-white/15 hover:bg-white/[.07] hover:text-white sm:flex-none"><Upload className="h-4 w-4" /> Import<input type="file" accept=".txt,.md,text/plain,text/markdown" className="hidden" onChange={handleImport} /></label>
             <button onClick={handleSave} disabled={!script} className="flex flex-1 items-center justify-center gap-2 rounded-xl border border-white/[.09] bg-white/[.035] px-4 py-2.5 text-xs font-semibold text-white/65 transition hover:border-white/15 hover:bg-white/[.07] hover:text-white disabled:cursor-not-allowed disabled:opacity-25 sm:flex-none"><Download className="h-4 w-4" /> {saved ? 'Saved' : 'Export'}</button>
