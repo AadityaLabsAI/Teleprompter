@@ -418,3 +418,123 @@ html[data-theme="light"] .teleqen-prompter .active-control { background:rgba(124
 html[data-theme="light"] .teleqen-prompter .prompter-focus { border-color:rgba(37,99,235,.18)!important; background:linear-gradient(90deg,transparent,rgba(37,99,235,.045),transparent)!important; }
 html[data-theme="light"] .teleqen-prompter .text-white\/30,html[data-theme="light"] .teleqen-prompter .text-white\/45,html[data-theme="light"] .teleqen-prompter .text-white\/50,html[data-theme="light"] .teleqen-prompter .text-white\/60 { color:rgba(23,32,51,.52)!important; }
 html[data-theme="light"] .teleqen-prompter select { color:#172033!important; background:rgba(15,23,42,.04)!important; }
+
+
+/* ── UX polish: calm hierarchy, touch-first controls, safe areas ── */
+.teleqen-app { min-height: 100dvh; }
+.teleqen-app > div { padding-bottom: max(12px, env(safe-area-inset-bottom)); }
+
+@media (max-width: 767px) {
+  .teleqen-app { padding: 10px 10px max(10px, env(safe-area-inset-bottom)) !important; }
+  .teleqen-app > div { min-height: calc(100dvh - 20px) !important; }
+
+  .teleqen-app header {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    margin-inline: -2px;
+    padding: 8px 2px 10px !important;
+    background: color-mix(in srgb, var(--tq-bg) 88%, transparent);
+    backdrop-filter: blur(20px) saturate(140%);
+  }
+
+  .teleqen-app header > div:last-child {
+    width: 100%;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .teleqen-app header > div:last-child::-webkit-scrollbar { display:none; }
+  .teleqen-app header > div:last-child > button,
+  .teleqen-app header > div:last-child > label { min-height: 44px; flex: 0 0 auto; }
+  .teleqen-app header > div:last-child > label { flex: 1 0 auto; }
+
+  .teleqen-app .editor-card {
+    border-radius: 20px !important;
+    min-height: 0 !important;
+  }
+
+  .teleqen-app .editor-card > div:first-child > div:first-child {
+    padding: 12px !important;
+  }
+
+  .teleqen-app .editor-card textarea {
+    min-height: 48dvh !important;
+    padding: 18px !important;
+    font-size: 17px !important;
+    line-height: 1.75 !important;
+  }
+
+  .teleqen-app .editor-card > div:first-child > div:nth-child(2) {
+    padding: 10px 12px !important;
+  }
+
+  .teleqen-app .editor-card > div:last-child {
+    padding-bottom: max(10px, env(safe-area-inset-bottom)) !important;
+  }
+
+  .landing-nav { padding-top: max(2px, env(safe-area-inset-top)); }
+  .landing-brand img { width:36px; height:36px; border-radius:11px; }
+  .landing-brand span { display:none; }
+  .landing-nav-actions .landing-ghost { display:none; }
+  .theme-switch { min-height:42px; padding-inline:12px; }
+
+  .landing-hero {
+    min-height:auto;
+    grid-template-columns:1fr;
+    gap:26px;
+    padding:54px 0 28px;
+  }
+  .hero-copy { max-width:none; }
+  .hero-copy h1 { font-size: clamp(43px, 13vw, 64px); line-height:.94; margin-top:16px; }
+  .hero-copy p { font-size:15px; line-height:1.55; }
+  .hero-actions { margin-top:22px; }
+  .landing-primary { width:100%; justify-content:center; min-height:52px; }
+  .hero-trust { width:100%; justify-content:center; }
+  .hero-device { width:min(100%, 410px); border-radius:26px; }
+  .landing-features { grid-template-columns:1fr !important; gap:10px !important; }
+  .landing-features article { padding:16px !important; }
+  .landing-footer { flex-direction:column; align-items:flex-start !important; gap:8px; padding-bottom:max(12px,env(safe-area-inset-bottom)); }
+}
+
+/* Avoid accidental horizontal scroll from wide desktop controls. */
+.teleqen-prompter, .teleqen-landing { overflow-x:hidden; }
+
+@media (max-width: 640px) {
+  .teleqen-prompter .prompter-script {
+    padding-left: 14px !important;
+    padding-right: 14px !important;
+  }
+  .teleqen-prompter .prompter-script p {
+    font-size: clamp(30px, 8.8vw, 54px) !important;
+    line-height: 1.32;
+  }
+  .teleqen-prompter .teleqen-hud {
+    left: 50%;
+    width: calc(100% - 10px);
+  }
+  .teleqen-prompter .hud-scroll {
+    justify-content: flex-start !important;
+    padding-inline: 2px;
+  }
+}
+
+/* Light mode: keep contrast intentional instead of merely inverting dark tokens. */
+html[data-theme="light"] .teleqen-prompter {
+  color: #172033;
+  background:
+    radial-gradient(900px 520px at 50% -20%, rgba(56,189,248,.10), transparent 60%),
+    #eef2f7;
+}
+html[data-theme="light"] .teleqen-prompter .prompter-script p {
+  color: #111827 !important;
+  text-shadow: 0 2px 10px rgba(15,23,42,.10) !important;
+}
+html[data-theme="light"] .teleqen-prompter .prompter-glass {
+  background: rgba(255,255,255,.84) !important;
+  border-color: rgba(15,23,42,.10) !important;
+  box-shadow: 0 20px 70px rgba(15,23,42,.14), inset 0 1px rgba(255,255,255,.9) !important;
+}
+html[data-theme="light"] .teleqen-prompter .control-btn { color: rgba(15,23,42,.58); }
+html[data-theme="light"] .teleqen-prompter .control-btn:hover { color:#111827; background:rgba(15,23,42,.055); }
+html[data-theme="light"] .teleqen-prompter .hud-scroll > div { background:rgba(15,23,42,.045); }
+html[data-theme="light"] .teleqen-prompter .text-white\/60 { color:rgba(15,23,42,.60)!important; }
