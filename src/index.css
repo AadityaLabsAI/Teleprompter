@@ -538,3 +538,235 @@ html[data-theme="light"] .teleqen-prompter .control-btn { color: rgba(15,23,42,.
 html[data-theme="light"] .teleqen-prompter .control-btn:hover { color:#111827; background:rgba(15,23,42,.055); }
 html[data-theme="light"] .teleqen-prompter .hud-scroll > div { background:rgba(15,23,42,.045); }
 html[data-theme="light"] .teleqen-prompter .text-white\/60 { color:rgba(15,23,42,.60)!important; }
+
+
+/* ── Final theme system: high-contrast light + refined dark ───────────── */
+html[data-theme="dark"] {
+  --tq-bg: #05070b;
+  --tq-surface: #0d111a;
+  --tq-surface-2: #111722;
+  --tq-text: #f8fafc;
+  --tq-text-2: #cbd5e1;
+  --tq-muted: #94a3b8;
+  --tq-faint: #64748b;
+  --tq-border: rgba(148,163,184,.16);
+  --tq-accent: #67e8f9;
+}
+html[data-theme="light"] {
+  --tq-bg: #f6f8fc;
+  --tq-surface: #ffffff;
+  --tq-surface-2: #f8fafc;
+  --tq-text: #0f172a;
+  --tq-text-2: #334155;
+  --tq-muted: #64748b;
+  --tq-faint: #94a3b8;
+  --tq-border: rgba(15,23,42,.12);
+  --tq-accent: #2563eb;
+}
+html[data-theme="light"] body {
+  background: var(--tq-bg);
+  color: var(--tq-text);
+}
+html[data-theme="light"] body::before {
+  background:
+    radial-gradient(circle at 8% 0%, rgba(56,189,248,.10), transparent 30rem),
+    radial-gradient(circle at 92% 0%, rgba(139,92,246,.09), transparent 32rem);
+}
+html[data-theme="light"] ::-webkit-scrollbar-thumb { background: rgba(15,23,42,.16); }
+html[data-theme="light"] ::-webkit-scrollbar-thumb:hover { background: rgba(15,23,42,.24); }
+html[data-theme="light"] ::selection { background: rgba(37,99,235,.18); }
+
+/* Studio light theme: replace every translucent-white dark-theme treatment with readable surfaces. */
+html[data-theme="light"] .teleqen-app {
+  color: var(--tq-text);
+  background:
+    radial-gradient(900px 520px at 4% -8%, rgba(56,189,248,.13), transparent 62%),
+    radial-gradient(850px 560px at 96% 0%, rgba(139,92,246,.11), transparent 62%),
+    linear-gradient(180deg, #f8faff 0%, #f2f5fa 100%) !important;
+}
+html[data-theme="light"] .teleqen-app::before {
+  background-image:
+    linear-gradient(rgba(15,23,42,.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(15,23,42,.035) 1px, transparent 1px);
+  opacity: .55;
+}
+html[data-theme="light"] .teleqen-app header {
+  border-color: var(--tq-border) !important;
+}
+html[data-theme="light"] .teleqen-app .editor-card {
+  background: rgba(255,255,255,.96) !important;
+  border: 1px solid rgba(15,23,42,.11) !important;
+  box-shadow: 0 28px 80px rgba(15,23,42,.10), 0 1px 2px rgba(15,23,42,.04) !important;
+  color: var(--tq-text);
+}
+html[data-theme="light"] .teleqen-app .editor-card::before {
+  background: linear-gradient(90deg, transparent, rgba(37,99,235,.38), rgba(124,58,237,.30), transparent);
+}
+html[data-theme="light"] .teleqen-app .editor-card > div:first-child {
+  background: linear-gradient(180deg, #fbfdff, #f7f9fc) !important;
+  border-color: rgba(15,23,42,.08) !important;
+}
+html[data-theme="light"] .teleqen-app .editor-card > div:last-child {
+  background: #fbfcfe !important;
+  border-color: rgba(15,23,42,.08) !important;
+}
+html[data-theme="light"] .teleqen-app .editor-card .text-white,
+html[data-theme="light"] .teleqen-app .editor-card .text-white/85 { color: var(--tq-text) !important; }
+html[data-theme="light"] .teleqen-app .editor-card .text-white/65 { color: var(--tq-text-2) !important; }
+html[data-theme="light"] .teleqen-app .editor-card .text-white/55,
+html[data-theme="light"] .teleqen-app .editor-card .text-white/38,
+html[data-theme="light"] .teleqen-app .editor-card .text-white/35,
+html[data-theme="light"] .teleqen-app .editor-card .text-white/30 { color: var(--tq-muted) !important; }
+html[data-theme="light"] .teleqen-app .editor-card .text-white/25,
+html[data-theme="light"] .teleqen-app .editor-card .text-white/20 { color: var(--tq-faint) !important; }
+html[data-theme="light"] .teleqen-app .editor-card input[aria-label="Script name"] {
+  color: var(--tq-text) !important;
+  caret-color: #2563eb;
+}
+html[data-theme="light"] .teleqen-app .editor-card textarea {
+  color: var(--tq-text) !important;
+  caret-color: #2563eb;
+  background: transparent;
+}
+html[data-theme="light"] .teleqen-app .editor-card textarea::placeholder {
+  color: rgba(71,85,105,.48) !important;
+}
+html[data-theme="light"] .teleqen-app .editor-card textarea:focus {
+  background: radial-gradient(circle at 50% 0, rgba(37,99,235,.045), transparent 58%);
+}
+html[data-theme="light"] .teleqen-app .topbar-button {
+  color: #334155 !important;
+  border-color: rgba(15,23,42,.12) !important;
+  background: rgba(255,255,255,.88) !important;
+  box-shadow: 0 2px 8px rgba(15,23,42,.05);
+}
+html[data-theme="light"] .teleqen-app .topbar-button:hover {
+  color: #0f172a !important;
+  background: #fff !important;
+  border-color: rgba(37,99,235,.25) !important;
+}
+html[data-theme="light"] .teleqen-app label {
+  color: #334155 !important;
+  border-color: rgba(15,23,42,.12) !important;
+  background: #f8fafc !important;
+}
+html[data-theme="light"] .teleqen-app label:hover {
+  border-color: rgba(37,99,235,.25) !important;
+  background: #fff !important;
+}
+html[data-theme="light"] .teleqen-app button.bg-white:not(:disabled) {
+  color: #fff !important;
+  background: linear-gradient(135deg, #2563eb, #7c3aed) !important;
+  box-shadow: 0 12px 28px rgba(37,99,235,.20) !important;
+}
+html[data-theme="light"] .teleqen-app .range-clean,
+html[data-theme="light"] .teleqen-app input[type="range"] { accent-color: #2563eb; }
+html[data-theme="light"] .teleqen-app .border-white/[.07],
+html[data-theme="light"] .teleqen-app .border-white/[.06],
+html[data-theme="light"] .teleqen-app .border-white/[.05],
+html[data-theme="light"] .teleqen-app .border-white/[.09],
+html[data-theme="light"] .teleqen-app .border-white/10 {
+  border-color: rgba(15,23,42,.10) !important;
+}
+html[data-theme="light"] .teleqen-app .bg-white/[.018],
+html[data-theme="light"] .teleqen-app .bg-white/[.025],
+html[data-theme="light"] .teleqen-app .bg-white/[.035],
+html[data-theme="light"] .teleqen-app .bg-white/[.05] {
+  background: rgba(15,23,42,.035) !important;
+}
+
+/* Light teleprompter is a genuine reading mode, not a dark UI with inverted colors. */
+html[data-theme="light"] .teleqen-prompter {
+  color: #0f172a !important;
+  background:
+    radial-gradient(1000px 620px at 50% -20%, rgba(37,99,235,.09), transparent 58%),
+    radial-gradient(900px 700px at 50% 120%, rgba(124,58,237,.06), transparent 60%),
+    linear-gradient(180deg, #f8fafc 0%, #eef2f7 100%) !important;
+}
+html[data-theme="light"] .teleqen-prompter .prompter-script {
+  color: #0f172a !important;
+  text-shadow: 0 2px 12px rgba(15,23,42,.08);
+}
+html[data-theme="light"] .teleqen-prompter .prompter-script p {
+  color: #0f172a !important;
+  text-shadow: 0 2px 12px rgba(15,23,42,.08) !important;
+}
+html[data-theme="light"] .teleqen-prompter .prompter-focus {
+  border-color: rgba(37,99,235,.22) !important;
+  background: linear-gradient(90deg, transparent, rgba(37,99,235,.055), transparent) !important;
+  box-shadow: 0 0 70px rgba(37,99,235,.045);
+}
+html[data-theme="light"] .teleqen-prompter .prompter-glass {
+  background: rgba(255,255,255,.90) !important;
+  border-color: rgba(15,23,42,.12) !important;
+  box-shadow: 0 20px 70px rgba(15,23,42,.14), inset 0 1px rgba(255,255,255,.9) !important;
+  backdrop-filter: blur(24px) saturate(120%);
+}
+html[data-theme="light"] .teleqen-prompter .control-btn {
+  color: #64748b !important;
+}
+html[data-theme="light"] .teleqen-prompter .control-btn:hover {
+  color: #0f172a !important;
+  background: rgba(15,23,42,.055) !important;
+}
+html[data-theme="light"] .teleqen-prompter .active-control {
+  color: #4f46e5 !important;
+  background: rgba(79,70,229,.09) !important;
+  box-shadow: inset 0 0 0 1px rgba(79,70,229,.16);
+}
+html[data-theme="light"] .teleqen-prompter .prompter-primary {
+  color: #fff !important;
+  background: linear-gradient(135deg, #2563eb, #7c3aed) !important;
+  box-shadow: 0 12px 35px rgba(37,99,235,.24), inset 0 1px rgba(255,255,255,.35) !important;
+}
+html[data-theme="light"] .teleqen-prompter .teleqen-settings {
+  color: #334155;
+}
+html[data-theme="light"] .teleqen-prompter .teleqen-settings h2,
+html[data-theme="light"] .teleqen-prompter .teleqen-settings .text-white,
+html[data-theme="light"] .teleqen-prompter .teleqen-settings .text-white/70 { color: #0f172a !important; }
+html[data-theme="light"] .teleqen-prompter .teleqen-settings .text-white/60 { color: #475569 !important; }
+html[data-theme="light"] .teleqen-prompter .teleqen-settings .text-white/55,
+html[data-theme="light"] .teleqen-prompter .teleqen-settings .text-white/50,
+html[data-theme="light"] .teleqen-prompter .teleqen-settings .text-white/35,
+html[data-theme="light"] .teleqen-prompter .teleqen-settings .text-white/30 { color: #64748b !important; }
+html[data-theme="light"] .teleqen-prompter .teleqen-settings select {
+  color: #0f172a !important;
+  background: #f8fafc !important;
+  border-color: rgba(15,23,42,.12) !important;
+}
+html[data-theme="light"] .teleqen-prompter .teleqen-settings option {
+  color: #0f172a;
+  background: #fff;
+}
+html[data-theme="light"] .teleqen-prompter .teleqen-settings .border-white/10,
+html[data-theme="light"] .teleqen-prompter .teleqen-settings .border-white/[.06] {
+  border-color: rgba(15,23,42,.11) !important;
+}
+html[data-theme="light"] .teleqen-prompter .teleqen-settings .bg-white/5,
+html[data-theme="light"] .teleqen-prompter .teleqen-settings .bg-white/[.03],
+html[data-theme="light"] .teleqen-prompter .teleqen-settings .bg-white/[.025] {
+  background: rgba(15,23,42,.035) !important;
+}
+html[data-theme="light"] .teleqen-prompter .teleqen-settings .active-control {
+  background: rgba(79,70,229,.09) !important;
+}
+html[data-theme="light"] .teleqen-prompter .prompter-progress {
+  background: linear-gradient(90deg, #2563eb, #7c3aed) !important;
+  box-shadow: 0 0 16px rgba(37,99,235,.28);
+}
+html[data-theme="light"] .teleqen-prompter .text-white/30,
+html[data-theme="light"] .teleqen-prompter .text-white/35,
+html[data-theme="light"] .teleqen-prompter .text-white/42 {
+  color: #64748b !important;
+}
+html[data-theme="light"] .teleqen-prompter .prompter-brand {
+  filter: drop-shadow(0 2px 12px rgba(37,99,235,.12));
+}
+html[data-theme="light"] .teleqen-prompter .teleqen-settings input[type="range"] { accent-color: #2563eb; }
+
+/* Theme toggle sits in the brand/header area and remains a true 44px touch target. */
+.teleqen-app header .topbar-button { min-height: 44px; }
+@media (max-width: 640px) {
+  .teleqen-app header .topbar-button { min-width: 44px; padding-inline: 11px; }
+}
