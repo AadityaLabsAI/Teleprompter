@@ -83,7 +83,7 @@ export function Editor({ script, setScript, wpm, setWpm, onPlay, theme, setTheme
           </div>
 
           <div className="flex w-full items-center gap-2 sm:w-auto">
-            <button onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')} className="topbar-button" aria-label="Toggle theme">{theme === 'dark' ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}<span className="hidden sm:inline">{theme === 'dark' ? 'Light' : 'Dark'}</span></button>
+            
             <div className="hidden items-center gap-2 rounded-xl border border-white/[.07] bg-white/[.025] px-3 py-2.5 text-[10px] font-semibold uppercase tracking-[.14em] text-white/35 md:flex"><ShieldCheck className="h-3.5 w-3.5 text-emerald-400/80" /> On-device</div>
             <label className="flex flex-1 cursor-pointer items-center justify-center gap-2 rounded-xl border border-white/[.09] bg-white/[.035] px-4 py-2.5 text-xs font-semibold text-white/65 transition hover:border-white/15 hover:bg-white/[.07] hover:text-white sm:flex-none"><Upload className="h-4 w-4" /> Import<input type="file" accept=".txt,.md,text/plain,text/markdown" className="hidden" onChange={handleImport} /></label>
             <button onClick={handleSave} disabled={!script} className="flex flex-1 items-center justify-center gap-2 rounded-xl border border-white/[.09] bg-white/[.035] px-4 py-2.5 text-xs font-semibold text-white/65 transition hover:border-white/15 hover:bg-white/[.07] hover:text-white disabled:cursor-not-allowed disabled:opacity-25 sm:flex-none"><Download className="h-4 w-4" /> {saved ? 'Saved' : 'Export'}</button>
