@@ -32,7 +32,7 @@ class TeleqenErrorBoundary extends React.Component<
         </div>
       );
     }
-    return this.props?.children;
+    return this.props.children;
   }
 }
 
