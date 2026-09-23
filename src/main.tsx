@@ -15,6 +15,12 @@ class TeleqenErrorBoundary extends React.Component<
   { hasError: boolean }
 > {
   state: { hasError: boolean } = { hasError: false };
+  private readonly children: React.ReactNode;
+
+  constructor(props: { children: React.ReactNode }) {
+    super(props);
+    this.children = props.children;
+  }
 
   static getDerivedStateFromError() {
     return { hasError: true };
@@ -32,7 +38,7 @@ class TeleqenErrorBoundary extends React.Component<
         </div>
       );
     }
-    return this.props.children;
+    return this.children;
   }
 }
 
