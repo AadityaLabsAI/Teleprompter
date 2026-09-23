@@ -1,16 +1,16 @@
 import { test, expect } from '@playwright/test';
 
-test('creator flow works on desktop and mobile without voice or keys controls', async ({ page }) => {
+test('main creator workspace opens directly and prompter flow works on desktop and mobile', async ({ page }) => {
   const errors=[];
   page.on('console', msg => { if (msg.type() === 'error') errors.push(msg.text()); });
   await page.goto('/');
   await expect(page).toHaveTitle(/Teleqen/i);
 
-  await expect(page.getByRole('button', { name: /Start creating/i })).toBeVisible();
-  await page.getByRole('button', { name: /Start creating/i }).click();
   const editor = page.getByLabel('Script text');
+  await expect(editor).toBeVisible();
+  await expect(page.getByRole('button', { name: /Start reading/i })).toBeVisible();
+
   await editor.fill('Welcome to Teleqen.\nThis is a real creator workflow test.');
-  await expect(page.getByRole('button', { name: 'Start reading' })).toBeVisible();
   await page.getByRole('button', { name: /Start reading/i }).click();
 
   await expect(page.getByLabel('Teleprompter script')).toBeVisible();
@@ -25,10 +25,11 @@ test('creator flow works on desktop and mobile without voice or keys controls', 
   await expect(page.getByRole('dialog', { name: 'Display settings' })).toBeVisible();
   await page.getByLabel('Close settings').click();
 
+  await page.getByLabel('Exit teleprompter').click();
+  await expect(page.getByLabel('Script text')).toBeVisible();
+
   await page.setViewportSize({ width: 390, height: 844 });
   await page.reload();
-  await expect(page.getByRole('button', { name: /Start creating/i })).toBeVisible();
-  await page.getByRole('button', { name: /Start creating/i }).click();
   await expect(page.getByLabel('Script text')).toBeVisible();
   await page.getByLabel('Script text').fill('Mobile creator test');
   await page.getByRole('button', { name: /Start reading/i }).click();
