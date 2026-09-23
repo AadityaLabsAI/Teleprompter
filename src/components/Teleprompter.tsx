@@ -340,7 +340,9 @@ export function Teleprompter({ script, wpm, onExit }: TeleprompterProps) {
         </div>
       </div>
 
-      {showCamera && <VideoOverlay onClose={() => setShowCamera(false)} />}\n\n      {showSettings && (
+      {showCamera && <VideoOverlay onClose={() => setShowCamera(false)} />}
+
+      {showSettings && (
         <div className="teleqen-settings prompter-glass glass-panel fixed left-1/2 z-[60] w-[calc(100%-1.5rem)] max-w-md -translate-x-1/2 rounded-2xl p-4" role="dialog" aria-label="Display settings">
           <div className="mb-4 flex items-center justify-between">
             <div>
