@@ -12,6 +12,7 @@ interface TeleprompterProps {
   wpm: number;
   onExit: () => void;
   theme?: 'dark' | 'light';
+  key?: string;
 }
 
 const FONT_FAMILIES = [
