@@ -900,3 +900,232 @@ html[data-theme="dark"] .teleqen-app .theme-toggle {
   .studio-header { padding-right:48px !important; }
   .theme-toggle { width:34px; height:34px; min-width:34px; min-height:34px; border-radius:10px; }
 }
+
+
+/* ── Production Studio surface system ─────────────────────────────────
+   Semantic hooks keep theme rendering independent from dark-theme utility
+   classes. Light mode uses opaque readable surfaces; dark mode stays rich.
+*/
+.studio-shell {
+  --studio-bg: #07090d;
+  --studio-surface: #10141c;
+  --studio-surface-soft: #151a24;
+  --studio-surface-hover: #1a2130;
+  --studio-text: #f8fafc;
+  --studio-text-2: #cbd5e1;
+  --studio-muted: #94a3b8;
+  --studio-faint: #64748b;
+  --studio-border: rgba(148,163,184,.16);
+  --studio-accent: #8b5cf6;
+  --studio-accent-2: #22d3ee;
+  --studio-success: #34d399;
+  color: var(--studio-text);
+  background: var(--studio-bg);
+}
+
+html[data-theme="light"] .studio-shell {
+  --studio-bg: #f4f7fb;
+  --studio-surface: #ffffff;
+  --studio-surface-soft: #f8fafc;
+  --studio-surface-hover: #f1f5f9;
+  --studio-text: #0f172a;
+  --studio-text-2: #334155;
+  --studio-muted: #64748b;
+  --studio-faint: #94a3b8;
+  --studio-border: rgba(15,23,42,.12);
+  --studio-accent: #4f46e5;
+  --studio-accent-2: #0284c7;
+  --studio-success: #047857;
+  color: var(--studio-text);
+  background:
+    radial-gradient(700px 420px at 0% -5%, rgba(14,165,233,.075), transparent 68%),
+    radial-gradient(720px 460px at 100% 0%, rgba(124,58,237,.065), transparent 68%),
+    linear-gradient(180deg, #f9fbfd 0%, #f0f4f8 100%);
+}
+
+.studio-header {
+  border-color: var(--studio-border) !important;
+}
+.studio-title { color: var(--studio-text) !important; }
+.studio-tagline { color: var(--studio-muted) !important; }
+.studio-badge {
+  color: var(--studio-muted) !important;
+  background: var(--studio-surface-soft) !important;
+  border-color: var(--studio-border) !important;
+}
+.studio-brand {
+  box-shadow: 0 8px 24px rgba(15,23,42,.14), 0 0 0 1px var(--studio-border);
+}
+
+.studio-device-badge,
+.studio-action-button {
+  color: var(--studio-text-2) !important;
+  background: var(--studio-surface) !important;
+  border-color: var(--studio-border) !important;
+  box-shadow: 0 1px 2px rgba(15,23,42,.035);
+}
+.studio-action-button:hover {
+  color: var(--studio-text) !important;
+  background: var(--studio-surface-hover) !important;
+  border-color: color-mix(in srgb, var(--studio-accent-2) 28%, var(--studio-border)) !important;
+}
+.studio-action-button:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--studio-accent-2) 70%, transparent);
+  outline-offset: 2px;
+}
+.studio-start-button {
+  color: #fff !important;
+  background: linear-gradient(135deg, #2563eb 0%, #6d28d9 100%) !important;
+  border: 1px solid rgba(37,99,235,.18);
+  box-shadow: 0 12px 30px rgba(37,99,235,.20);
+}
+.studio-start-button:not(:disabled):hover {
+  filter: brightness(1.045);
+  box-shadow: 0 15px 36px rgba(37,99,235,.25);
+}
+.studio-start-button:disabled {
+  color: var(--studio-faint) !important;
+  background: var(--studio-surface-soft) !important;
+  border-color: var(--studio-border);
+  box-shadow: none;
+}
+
+.studio-editor-card {
+  background: var(--studio-surface) !important;
+  color: var(--studio-text);
+  border-color: var(--studio-border) !important;
+  box-shadow: 0 28px 80px rgba(15,23,42,.10), 0 1px 3px rgba(15,23,42,.05) !important;
+}
+html[data-theme="dark"] .studio-editor-card {
+  box-shadow: 0 40px 120px rgba(0,0,0,.42), inset 0 1px rgba(255,255,255,.035) !important;
+}
+.studio-editor-header {
+  background: var(--studio-surface-soft) !important;
+  border-color: var(--studio-border) !important;
+}
+.studio-script-row { color: var(--studio-text-2); }
+.studio-script-name {
+  color: var(--studio-text) !important;
+  caret-color: var(--studio-accent-2);
+}
+.studio-script-name::placeholder { color: var(--studio-faint) !important; }
+.studio-script-name:focus {
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--studio-accent-2) 22%, transparent);
+}
+.studio-stats,
+.studio-section-label { color: var(--studio-muted) !important; }
+.studio-stat { color: var(--studio-muted) !important; }
+.studio-wpm {
+  color: var(--studio-text-2) !important;
+  background: color-mix(in srgb, var(--studio-text) 5%, transparent) !important;
+}
+.studio-pace-row {
+  border-color: var(--studio-border) !important;
+}
+.studio-range {
+  accent-color: var(--studio-accent-2) !important;
+  min-height: 28px;
+}
+.studio-range:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--studio-accent-2) 70%, transparent);
+  outline-offset: 3px;
+}
+.studio-clear {
+  color: var(--studio-muted) !important;
+}
+.studio-clear:hover {
+  color: #dc2626 !important;
+  background: rgba(220,38,38,.08) !important;
+}
+.studio-writing-area {
+  background: var(--studio-surface) !important;
+}
+html[data-theme="light"] .studio-writing-area {
+  background:
+    linear-gradient(180deg, rgba(248,250,252,.65), #fff 20%) !important;
+}
+.studio-textarea {
+  color: var(--studio-text) !important;
+  caret-color: var(--studio-accent-2);
+}
+.studio-textarea::placeholder {
+  color: var(--studio-faint) !important;
+  opacity: .72;
+}
+.studio-textarea:focus {
+  background: radial-gradient(circle at 50% 0%, color-mix(in srgb, var(--studio-accent-2) 4%, transparent), transparent 55%);
+}
+.studio-empty-icon {
+  background: var(--studio-surface-soft) !important;
+  border-color: var(--studio-border) !important;
+}
+.studio-empty-title { color: var(--studio-text-2) !important; }
+.studio-empty-copy { color: var(--studio-muted) !important; }
+.studio-footer {
+  color: var(--studio-faint) !important;
+  border-color: var(--studio-border) !important;
+  background: var(--studio-surface-soft) !important;
+}
+.studio-local-badge {
+  color: var(--studio-success) !important;
+  background: color-mix(in srgb, var(--studio-success) 9%, transparent) !important;
+}
+
+/* Compact header theme control: visually quiet, reliably readable, touch-safe. */
+.theme-toggle {
+  z-index: 3;
+  width: 38px;
+  height: 38px;
+  min-width: 38px;
+  min-height: 38px;
+  border: 1px solid var(--studio-border);
+  border-radius: 12px;
+  background: var(--studio-surface);
+  color: var(--studio-text-2);
+  box-shadow: 0 5px 18px rgba(15,23,42,.08);
+}
+.theme-toggle:hover {
+  color: var(--studio-text);
+  background: var(--studio-surface-hover);
+  border-color: color-mix(in srgb, var(--studio-accent-2) 28%, var(--studio-border));
+}
+.theme-toggle:active { transform: scale(.95); }
+.theme-toggle:focus-visible {
+  outline: 2px solid var(--studio-accent-2);
+  outline-offset: 3px;
+}
+
+@media (max-width: 640px) {
+  .studio-shell {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+  }
+  .studio-header {
+    gap: 12px;
+    margin-bottom: 12px !important;
+    padding-right: 50px !important;
+    padding-bottom: 12px !important;
+  }
+  .studio-actions {
+    gap: 7px;
+  }
+  .studio-action-button,
+  .studio-start-button {
+    min-height: 44px;
+    padding-inline: 11px !important;
+  }
+  .studio-start-button span { white-space: nowrap; }
+  .studio-editor-card { border-radius: 20px !important; }
+  .studio-editor-header { border-radius: 20px 20px 0 0; }
+  .studio-textarea {
+    min-height: 48dvh !important;
+    font-size: 17px !important;
+    line-height: 1.75 !important;
+  }
+  .theme-toggle {
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+    min-height: 36px;
+  }
+}
