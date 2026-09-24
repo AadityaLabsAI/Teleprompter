@@ -82,6 +82,16 @@ export function Editor({ script, setScript, wpm, setWpm, onPlay, theme, setTheme
             </div>
           </div>
 
+          <button
+            type="button"
+            onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+            className="topbar-button shrink-0"
+            aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`}
+            title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`}
+          >
+            {theme === 'dark' ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+            <span className="hidden sm:inline">{theme === 'dark' ? 'Light' : 'Dark'}</span>
+          </button>
           <div className="flex w-full items-center gap-2 sm:w-auto">
             
             <div className="hidden items-center gap-2 rounded-xl border border-white/[.07] bg-white/[.025] px-3 py-2.5 text-[10px] font-semibold uppercase tracking-[.14em] text-white/35 md:flex"><ShieldCheck className="h-3.5 w-3.5 text-emerald-400/80" /> On-device</div>
