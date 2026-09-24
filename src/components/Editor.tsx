@@ -70,9 +70,9 @@ export function Editor({ script, setScript, wpm, setWpm, onPlay, theme, setTheme
   return (
     <motion.main initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.25 }} className="teleqen-app min-h-[100dvh] w-full px-3 py-3 sm:px-6 sm:py-6 lg:px-10">
       <div className="mx-auto flex min-h-[calc(100dvh-1.5rem)] w-full max-w-[1680px] flex-col sm:min-h-[calc(100dvh-3rem)]">
-        <header className="mb-4 flex flex-col gap-4 border-b border-white/[.07] pb-4 sm:mb-6 sm:pb-5 lg:flex-row lg:items-center lg:justify-between">
+        <header className="studio-header relative mb-4 flex flex-col gap-4 border-b border-white/[.07] pb-4 pr-12 sm:mb-6 sm:pb-5 sm:pr-14 lg:flex-row lg:items-center lg:justify-between">
           <div className="flex min-w-0 items-center gap-3">
-            <img src="/teleqen-mark.svg" alt="Teleqen" className="h-10 w-10 shrink-0 rounded-[13px] shadow-lg sm:h-11 sm:w-11" />
+            <img src="/teleqen-mark.svg" alt="Teleqen" className="brand-mark h-10 w-10 shrink-0 rounded-[13px] sm:h-11 sm:w-11" />
             <div className="min-w-0">
               <div className="flex items-center gap-2.5">
                 <h1 className="font-display text-xl font-semibold tracking-[-.035em] text-white sm:text-[22px]">{APP_CONFIG.appName}</h1>
@@ -85,12 +85,11 @@ export function Editor({ script, setScript, wpm, setWpm, onPlay, theme, setTheme
           <button
             type="button"
             onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-            className="topbar-button shrink-0"
+            className="theme-toggle"
             aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`}
-            title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`}
+            title={`Switch to ${theme === 'dark' ? 'Light' : 'Dark'} theme`}
           >
             {theme === 'dark' ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
-            <span className="hidden sm:inline">{theme === 'dark' ? 'Light' : 'Dark'}</span>
           </button>
           <div className="flex w-full items-center gap-2 sm:w-auto">
             
