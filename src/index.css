@@ -770,3 +770,133 @@ html[data-theme="light"] .teleqen-prompter .teleqen-settings input[type="range"]
 @media (max-width: 640px) {
   .teleqen-app header .topbar-button { min-width: 44px; padding-inline: 11px; }
 }
+
+
+/* ── Final Studio light-mode cleanup ───────────────────────────────── */
+html[data-theme="light"] {
+  color-scheme: light;
+}
+html[data-theme="dark"] {
+  color-scheme: dark;
+}
+html[data-theme="light"] .teleqen-app {
+  --tq-bg: #f3f6fb;
+  --tq-surface: #ffffff;
+  --tq-surface-2: #f8fafc;
+  --tq-text: #0f172a;
+  --tq-text-2: #334155;
+  --tq-muted: #64748b;
+  --tq-faint: #94a3b8;
+  --tq-border: rgba(15,23,42,.12);
+  background:
+    radial-gradient(720px 420px at 0% 0%, rgba(14,165,233,.09), transparent 68%),
+    radial-gradient(760px 460px at 100% 0%, rgba(124,58,237,.07), transparent 68%),
+    linear-gradient(180deg,#f8fafc 0%,#eef2f7 100%) !important;
+}
+html[data-theme="light"] .teleqen-app header {
+  background: rgba(248,250,252,.78);
+  border-color: rgba(15,23,42,.10) !important;
+}
+html[data-theme="light"] .teleqen-app header h1 { color:#0b1220 !important; }
+html[data-theme="light"] .teleqen-app header p { color:#64748b !important; }
+html[data-theme="light"] .teleqen-app header .border-white\/10 {
+  border-color: rgba(15,23,42,.10) !important;
+  background: rgba(15,23,42,.035) !important;
+  color: #64748b !important;
+}
+html[data-theme="light"] .teleqen-app .editor-card {
+  background:#fff !important;
+  border-color:rgba(15,23,42,.12) !important;
+  box-shadow:0 24px 70px rgba(15,23,42,.09),0 1px 3px rgba(15,23,42,.06) !important;
+}
+html[data-theme="light"] .teleqen-app .editor-card > div:first-child {
+  background:#f8fafc !important;
+  border-color:rgba(15,23,42,.08) !important;
+}
+html[data-theme="light"] .teleqen-app .editor-card > div:first-child > div:first-child,
+html[data-theme="light"] .teleqen-app .editor-card > div:first-child > div:nth-child(2) {
+  background:transparent !important;
+}
+html[data-theme="light"] .teleqen-app .editor-card > div:last-child {
+  background:#f8fafc !important;
+  border-color:rgba(15,23,42,.08) !important;
+}
+html[data-theme="light"] .teleqen-app .editor-card input[aria-label="Script name"] {
+  color:#0f172a !important;
+  font-weight:700;
+}
+html[data-theme="light"] .teleqen-app .editor-card textarea {
+  color:#0f172a !important;
+  font-weight:500;
+}
+html[data-theme="light"] .teleqen-app .editor-card textarea::placeholder {
+  color:#64748b !important;
+  opacity:.72;
+}
+html[data-theme="light"] .teleqen-app .editor-card .text-white\/65 { color:#334155 !important; }
+html[data-theme="light"] .teleqen-app .editor-card .text-white\/55,
+html[data-theme="light"] .teleqen-app .editor-card .text-white\/38,
+html[data-theme="light"] .teleqen-app .editor-card .text-white\/35,
+html[data-theme="light"] .teleqen-app .editor-card .text-white\/30 { color:#64748b !important; }
+html[data-theme="light"] .teleqen-app .editor-card .text-white\/25,
+html[data-theme="light"] .teleqen-app .editor-card .text-white\/20 { color:#94a3b8 !important; }
+html[data-theme="light"] .teleqen-app label {
+  color:#334155 !important;
+  background:#fff !important;
+  border-color:rgba(15,23,42,.12) !important;
+  box-shadow:0 1px 2px rgba(15,23,42,.03);
+}
+html[data-theme="light"] .teleqen-app label:hover {
+  color:#0f172a !important;
+  background:#f8fafc !important;
+  border-color:rgba(37,99,235,.28) !important;
+}
+html[data-theme="light"] .teleqen-app button:not(.theme-toggle):not(.control-btn) {
+  color:#334155;
+}
+html[data-theme="light"] .teleqen-app .primary-button,
+html[data-theme="light"] .teleqen-app button.bg-white:not(:disabled) {
+  color:#fff !important;
+  background:linear-gradient(135deg,#2563eb,#6d28d9) !important;
+}
+html[data-theme="light"] .teleqen-app .theme-toggle {
+  color:#334155 !important;
+  background:rgba(255,255,255,.96) !important;
+  border-color:rgba(15,23,42,.13) !important;
+}
+html[data-theme="light"] .teleqen-app .theme-toggle:hover {
+  color:#0f172a !important;
+  background:#fff !important;
+  border-color:rgba(37,99,235,.32) !important;
+}
+html[data-theme="dark"] .teleqen-app .theme-toggle {
+  color:#cbd5e1;
+  background:rgba(255,255,255,.055);
+  border-color:rgba(255,255,255,.11);
+}
+.studio-header { min-height: 64px; }
+.theme-toggle {
+  position:absolute;
+  top:0;
+  right:0;
+  width:36px;
+  height:36px;
+  min-width:36px;
+  min-height:36px;
+  display:grid;
+  place-items:center;
+  border:1px solid rgba(255,255,255,.11);
+  border-radius:11px;
+  background:rgba(255,255,255,.055);
+  color:#cbd5e1;
+  box-shadow:0 6px 18px rgba(15,23,42,.10);
+  cursor:pointer;
+  transition:transform .18s ease, background .18s ease, border-color .18s ease, color .18s ease;
+}
+.theme-toggle:hover { transform:translateY(-1px); }
+.theme-toggle:active { transform:translateY(0) scale(.96); }
+.theme-toggle:focus-visible { outline:2px solid #2563eb; outline-offset:2px; }
+@media (max-width:640px) {
+  .studio-header { padding-right:48px !important; }
+  .theme-toggle { width:34px; height:34px; min-width:34px; min-height:34px; border-radius:10px; }
+}
