@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
 import { AnimatePresence } from 'motion/react';
-import { Moon, Sun } from 'lucide-react';
 import { useLocalStorage } from './hooks/useLocalStorage';
 import { Editor } from './components/Editor';
 import { Teleprompter } from './components/Teleprompter';
@@ -18,6 +17,8 @@ export default function App() {
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
     document.documentElement.style.colorScheme = theme;
+    const themeColor = theme === 'light' ? '#f4f7fb' : '#07090d';
+    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', themeColor);
   }, [theme]);
 
   const openPrompter = useCallback(() => {
