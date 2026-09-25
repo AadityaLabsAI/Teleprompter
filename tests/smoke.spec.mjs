@@ -41,3 +41,46 @@ test('main creator workspace opens directly and prompter flow works on desktop a
   expect(overflow).toBeLessThanOrEqual(2);
   expect(errors).toEqual([]);
 });
+
+
+test('light theme keeps Studio surfaces and text readable', async ({ page }) => {
+  await page.goto('/');
+  const editor = page.getByLabel('Script text');
+  await expect(editor).toBeVisible();
+
+  const toggle = page.getByRole('button', { name: /Switch to light theme/i });
+  await expect(toggle).toBeVisible();
+  await toggle.click();
+
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'light');
+
+  const metrics = await page.evaluate(() => {
+    const card = document.querySelector('.studio-editor-card');
+    const writingArea = document.querySelector('.studio-writing-area');
+    const textarea = document.querySelector('.studio-textarea');
+    const start = document.querySelector('.studio-start-button');
+    const cardStyle = card ? getComputedStyle(card) : null;
+    const areaStyle = writingArea ? getComputedStyle(writingArea) : null;
+    const textStyle = textarea ? getComputedStyle(textarea) : null;
+    const startStyle = start ? getComputedStyle(start) : null;
+    return {
+      cardBackground: cardStyle?.backgroundColor,
+      areaBackground: areaStyle?.backgroundColor,
+      textColor: textStyle?.color,
+      startColor: startStyle?.color,
+      startBackground: startStyle?.backgroundImage || startStyle?.backgroundColor,
+      documentBackground: getComputedStyle(document.documentElement).backgroundColor,
+    };
+  });
+
+  expect(metrics.cardBackground).toMatch(/255/);
+  expect(metrics.areaBackground).toMatch(/255/);
+  expect(metrics.textColor).not.toMatch(/255,\s*255,\s*255/);
+  expect(metrics.startColor).toMatch(/255/);
+  expect(metrics.startBackground).not.toBe('rgba(0, 0, 0, 0)');
+
+  await expect(page.getByRole('button', { name: /Switch to dark theme/i })).toBeVisible();
+  await page.reload();
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'light');
+  await expect(page.getByRole('button', { name: /Switch to dark theme/i })).toBeVisible();
+});
