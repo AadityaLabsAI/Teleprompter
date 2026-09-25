@@ -54,6 +54,7 @@ test('light theme keeps Studio surfaces and text readable', async ({ page }) => 
   await toggle.click();
 
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'light');
+  await expect(page.locator('meta[name="theme-color"]')).toHaveAttribute('content', '#f4f7fb');
 
   const metrics = await page.evaluate(() => {
     const card = document.querySelector('.studio-editor-card');
