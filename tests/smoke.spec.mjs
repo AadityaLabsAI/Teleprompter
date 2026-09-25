@@ -10,7 +10,8 @@ test('main creator workspace opens directly and prompter flow works on desktop a
   await expect(editor).toBeVisible();
   await expect(page.getByRole('button', { name: /Start reading/i })).toBeVisible();
 
-  await editor.fill('Welcome to Teleqen.\nThis is a real creator workflow test.');
+  await editor.fill('Welcome to Teleqen.
+This is a real creator workflow test.');
   await page.getByRole('button', { name: /Start reading/i }).click();
 
   await expect(page.getByLabel('Teleprompter script')).toBeVisible();
