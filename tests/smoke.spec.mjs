@@ -66,7 +66,8 @@ test('light theme keeps Studio surfaces and text readable', async ({ page }) => 
     const startStyle = start ? getComputedStyle(start) : null;
     return {
       cardBackground: cardStyle?.backgroundColor,
-      areaBackground: areaStyle?.backgroundColor,\n      areaImage: areaStyle?.backgroundImage,
+      areaBackground: areaStyle?.backgroundColor,
+      areaImage: areaStyle?.backgroundImage,
       textColor: textStyle?.color,
       startColor: startStyle?.color,
       startBackground: startStyle?.backgroundImage || startStyle?.backgroundColor,
@@ -75,7 +76,8 @@ test('light theme keeps Studio surfaces and text readable', async ({ page }) => 
   });
 
   expect(metrics.cardBackground).toMatch(/255/);
-  expect(metrics.areaBackground).toMatch(/rgba\\(0, 0, 0, 0\\)|transparent/);\n  expect(metrics.areaImage).toContain('linear-gradient');
+  expect(metrics.areaBackground).toMatch(/rgba\(0, 0, 0, 0\)|transparent/);
+  expect(metrics.areaImage).toContain('linear-gradient');
   expect(metrics.textColor).not.toMatch(/255,\s*255,\s*255/);
   expect(metrics.startColor).toMatch(/255/);
   expect(metrics.startBackground).not.toBe('rgba(0, 0, 0, 0)');
