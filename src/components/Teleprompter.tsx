@@ -204,7 +204,7 @@ export function Teleprompter({ script, wpm, onExit }: TeleprompterProps) {
       <div className="prompter-v2-progress"><span style={{ width: `${progress}%` }} /></div>
 
       <header className="prompter-v2-header">
-        <button type="button" onClick={exitPrompter} className="prompter-v2-brand" aria-label="Exit teleprompter">
+        <button type="button" onClick={exitPrompter} className="prompter-v2-brand" aria-label="Back to editor">
           <img src="/teleqen-mark.svg" alt="Teleqen" />
           <span>TELEQEN</span>
         </button>
