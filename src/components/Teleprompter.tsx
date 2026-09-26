@@ -250,7 +250,7 @@ export function Teleprompter({ script, wpm, onExit }: TeleprompterProps) {
           <button onClick={() => setShowFocusLine((v) => !v)} className={`prompter-v2-control ${showFocusLine ? 'selected' : ''}`} aria-label="Toggle focus line"><Target size={17} /><small>Focus</small></button>
           <button onClick={() => setShowCamera((v) => !v)} className={`prompter-v2-control ${showCamera ? 'selected' : ''}`} aria-label="Toggle camera preview"><Video size={17} /><small>Camera</small></button>
           <button onClick={() => setSoundEnabled((v) => !v)} className={`prompter-v2-control ${soundEnabled ? 'selected' : ''}`} aria-label={soundEnabled ? 'Mute countdown' : 'Enable countdown sound'}><span className="prompter-v2-icon">{soundEnabled ? <Volume2 size={17} /> : <VolumeX size={17} />}</span><small>Sound</small></button>
-          <button onClick={() => setShowSettings((v) => !v)} className={`prompter-v2-control ${showSettings ? 'selected' : ''}`} aria-label="Open display settings"><Settings2 size={17} /><small>Style</small></button>
+          <button onClick={() => setShowSettings((v) => !v)} className={`prompter-v2-control ${showSettings ? 'selected' : ''}`} aria-label="Toggle display settings"><Settings2 size={17} /><small>Style</small></button>
         </div>
       </div>
 
