@@ -1275,4 +1275,9 @@ html[data-theme="dark"] .pulse-shell .studio-writing-area {
   html[data-theme="light"] .pulse-shell .editor-card .studio-textarea {
     color: #0f172a !important;
   }
+
+  html[data-theme="light"] .pulse-shell .studio-start-button {
+    color: #fff !important;
+    background: linear-gradient(135deg, #2563eb, #e11d48) !important;
+  }
 }
