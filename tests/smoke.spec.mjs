@@ -65,13 +65,13 @@ test('light theme keeps Studio surfaces and text readable', async ({ page }) => 
     const textStyle = textarea ? getComputedStyle(textarea) : null;
     const startStyle = start ? getComputedStyle(start) : null;
     return {
-      cardBackground: cardStyle?.backgroundColor,
+      cardBackground: cardStyle?.background,
       areaBackground: areaStyle?.backgroundColor,
       areaImage: areaStyle?.backgroundImage,
       textColor: textStyle?.color,
       startColor: startStyle?.color,
       startBackground: startStyle?.backgroundImage || startStyle?.backgroundColor,
-      documentBackground: getComputedStyle(document.documentElement).backgroundColor,
+      documentBackground: getComputedStyle(document.documentElement).background,
     };
   });
 
