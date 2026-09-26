@@ -92,11 +92,11 @@ export function Editor({ script, setScript, wpm, setWpm, onPlay, theme, setTheme
               <input type="file" accept=".txt,.md,text/plain,text/markdown" onChange={handleImport} />
             </label>
             <button onClick={handleSave} disabled={!script} className="studio-v2-action secondary"><Download size={15} /><span>{saved ? 'Saved' : 'Export'}</span></button>
-            <button onClick={onPlay} disabled={!script.trim()} className="studio-v2-action primary"><Play size={14} fill="currentColor" /><span>Start reading</span></button>
+            <button onClick={onPlay} disabled={!script.trim()} className="studio-v2-action primary studio-start-button"><Play size={14} fill="currentColor" /><span>Start reading</span></button>
           </div>
         </header>
 
-        <section className="studio-v2-card" aria-label="Script editor">
+        <section className="studio-v2-card studio-editor-card" aria-label="Script editor">
           <div className="studio-v2-toolbar">
             <div className="studio-v2-file">
               <div className="studio-v2-file-icon"><FolderOpen size={16} /></div>
@@ -120,7 +120,7 @@ export function Editor({ script, setScript, wpm, setWpm, onPlay, theme, setTheme
             <button onClick={handleClear} disabled={!script} aria-label="Clear script" className="studio-v2-clear"><Trash2 size={15} /> Clear</button>
           </div>
 
-          <div className="studio-v2-writing">
+          <div className="studio-v2-writing studio-writing-area">
             {!script && (
               <div className="studio-v2-empty">
                 <div className="studio-v2-empty-icon"><Sparkles size={19} /></div>
