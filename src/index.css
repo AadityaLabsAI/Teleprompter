@@ -1129,3 +1129,115 @@ html[data-theme="light"] .studio-writing-area {
     min-height: 36px;
   }
 }
+
+
+/* ── NEETPULSE-inspired product shell ──────────────────────────────────
+   Same structural language: compact sticky header, 1440px frame, generous
+   whitespace, large rounded cards, soft borders and editorial typography.
+   Teleqen keeps its own brand and functionality.
+*/
+.pulse-shell {
+  background: #fafafa;
+  color: #18181b;
+}
+.pulse-header {
+  border-bottom-color: #f1f5f9 !important;
+}
+.pulse-header .studio-brand {
+  box-shadow: 0 8px 22px rgba(244,63,94,.10), 0 0 0 1px rgba(15,23,42,.05);
+}
+.pulse-header-actions { align-self: stretch; }
+.pulse-theme-toggle {
+  top: 22px;
+  right: 18px;
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  border-radius: 999px;
+}
+.pulse-card {
+  border-color: #f1f5f9 !important;
+}
+.pulse-card-header {
+  border-color: #f1f5f9 !important;
+}
+.pulse-writing-area {
+  min-height: 0;
+}
+html[data-theme="light"] .pulse-shell {
+  background:
+    radial-gradient(600px 260px at 0% -5%, rgba(99,102,241,.035), transparent 72%),
+    radial-gradient(600px 260px at 100% -5%, rgba(244,63,94,.03), transparent 72%),
+    #fafafa;
+}
+html[data-theme="light"] .pulse-shell .studio-title {
+  color: #0f172a !important;
+}
+html[data-theme="light"] .pulse-shell .studio-tagline {
+  color: #9ca3af !important;
+}
+html[data-theme="light"] .pulse-shell .studio-editor-card {
+  background: #fff !important;
+  border-color: #f1f5f9 !important;
+  box-shadow: 0 20px 40px -15px rgba(0,0,0,.05) !important;
+}
+html[data-theme="light"] .pulse-shell .studio-script-name,
+html[data-theme="light"] .pulse-shell .studio-textarea {
+  color: #0f172a !important;
+}
+html[data-theme="light"] .pulse-shell .studio-textarea::placeholder {
+  color: #cbd5e1 !important;
+}
+html[data-theme="light"] .pulse-shell .studio-editor-header,
+html[data-theme="light"] .pulse-shell .studio-writing-area {
+  background: #fff !important;
+}
+html[data-theme="light"] .pulse-shell .studio-footer {
+  background: #fafafa !important;
+  border-color: #f1f5f9 !important;
+}
+html[data-theme="dark"] .pulse-shell {
+  background: #07090d;
+  color: #f8fafc;
+}
+html[data-theme="dark"] .pulse-header {
+  background: rgba(7,9,13,.94) !important;
+  border-bottom-color: rgba(148,163,184,.12) !important;
+}
+html[data-theme="dark"] .pulse-shell .studio-editor-card {
+  margin-top: 2rem;
+}
+html[data-theme="dark"] .pulse-shell .studio-action-button,
+html[data-theme="dark"] .pulse-shell .studio-device-badge {
+  background: #10141c !important;
+  border-color: rgba(148,163,184,.16) !important;
+  color: #cbd5e1 !important;
+}
+html[data-theme="dark"] .pulse-shell .studio-editor-card,
+html[data-theme="dark"] .pulse-shell .studio-editor-header,
+html[data-theme="dark"] .pulse-shell .studio-writing-area {
+  border-color: rgba(148,163,184,.16) !important;
+}
+@media (max-width: 640px) {
+  .pulse-header {
+    padding-left: 16px !important;
+    padding-right: 60px !important;
+    padding-top: 18px !important;
+  }
+  .pulse-header-actions {
+    width: 100%;
+  }
+  .pulse-card {
+    margin-left: 12px !important;
+    margin-right: 12px !important;
+    margin-top: 16px !important;
+    border-radius: 2rem !important;
+  }
+  .pulse-theme-toggle {
+    top: 17px;
+    right: 14px;
+    width: 38px;
+    height: 38px;
+    min-width: 38px;
+  }
+}
