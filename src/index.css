@@ -1242,3 +1242,37 @@ html[data-theme="dark"] .pulse-shell .studio-writing-area {
     min-width: 38px;
   }
 }
+
+/* Light-theme cascade guard: legacy .editor-card utilities use !important,
+   so keep the final light surface overrides in the same utility layer. */
+@layer utilities {
+  html[data-theme="light"] .pulse-shell .editor-card {
+    background: #fff !important;
+    background-image: none !important;
+    border-color: #f1f5f9 !important;
+    box-shadow: 0 20px 40px -15px rgba(0,0,0,.05) !important;
+    color: #0f172a !important;
+  }
+
+  html[data-theme="light"] .pulse-shell .editor-card > div:first-child {
+    background: #fff !important;
+    background-image: none !important;
+    border-color: #f1f5f9 !important;
+  }
+
+  html[data-theme="light"] .pulse-shell .editor-card > div:last-child {
+    background: #fafafa !important;
+    background-image: none !important;
+    border-color: #f1f5f9 !important;
+  }
+
+  html[data-theme="light"] .pulse-shell .editor-card .studio-writing-area,
+  html[data-theme="light"] .pulse-shell .editor-card .studio-textarea {
+    background-color: #fff !important;
+    background-image: none !important;
+  }
+
+  html[data-theme="light"] .pulse-shell .editor-card .studio-textarea {
+    color: #0f172a !important;
+  }
+}
