@@ -79,7 +79,7 @@ test('light theme keeps Studio surfaces and text readable', async ({ page }) => 
   expect(metrics.areaBackground).toMatch(/255/);
   expect(metrics.areaImage).toMatch(/none|linear-gradient/);
   expect(metrics.textColor).not.toMatch(/255,\s*255,\s*255/);
-  expect(metrics.startColor).not.toMatch(/255,\s*255,\s*255/);
+  expect(metrics.startColor).toMatch(/255,\s*255,\s*255/);
   expect(metrics.startBackground).not.toBe('rgba(0, 0, 0, 0)');
 
   await expect(page.getByRole('button', { name: /Switch to dark theme/i })).toBeVisible();
